@@ -50,7 +50,7 @@
     
 -   Som en användare vill jag kunna välja om jag ska vara inloggad automatiskt(Kom ihåg mig ”knappen”).
 
-## Framtida utveckling user cases
+## Framtida utveckling user stories
 
 -   Som en användare vill jag kunna tävla med de andra användare på kontot.
     
