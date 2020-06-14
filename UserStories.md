@@ -59,8 +59,11 @@
 # Version 1
 
 -   Som en användare ska jag kunna tycka på en knapp som markerat att man har borstat tänderna.
+
 -   Som en användare ska jag kunna tycka på en knapp som markerat att man har använt fluor.
+
 -   Som en användare ska jag kunna tycka på en knapp som markerat att man har använt tandtråd.
+
 -   Som användare ska jag kunna skapa ett konto.
 -   Som en användare vill jag kunna skriva mitt namn på kontot.
 -   Som en användare vill jag kunna se alla aktiviteter per dag. 
