@@ -56,7 +56,7 @@
     
 -   En aktivitet har exempelvis 10 poäng. Vem som har mest poäng slutet av månaden vinner.
 
-#Version 1
+# Version 1
 -   Som en användare ska jag kunna tycka på en knapp som markerat att man har borstat tänderna.
 •	Som en användare ska jag kunna tycka på en knapp som markerat att man har använt fluor.
 •	Som en användare ska jag kunna tycka på en knapp som markerat att man har använt tandtråd.
@@ -68,7 +68,7 @@
 •	Som en användare vill jag kunna se en statistik på tandtråd.
 •	Som en användare vill jag kunna se grön färg som representera att man har utfört aktiviteten.
 •	Som en användare vill jag kunna se röd färg som representera att man inte har utfört aktiviteten.
-#User Stories¬
+# User Stories
 •	Som en användare vill jag kunna se hur många gånger jag borstat tänderna per dag.
 •	Som en användare ska jag kunna skapa en användare i ett konto. 
 •	Som en användare ska jag kunna byta användare.
@@ -84,7 +84,7 @@
 •	Som en användare ska jag kunna ändra lösenord.
 •	Som en användare vill jag kunna återställa lösenord.
 •	Som en användare vill jag kunna välja om jag ska vara inloggad automatiskt(Kom ihåg mig ”knappen”). 
-##Framtida utveckling user cases
+## Framtida utveckling user cases
 •	Som en användare vill jag kunna tävla med de andra användare på kontot.
 •	En aktivitet har exempelvis 10 poäng. Vem som har mest poäng slutet av månaden vinner. 
 
