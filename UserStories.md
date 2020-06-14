@@ -22,7 +22,7 @@
 
 -   Som en användare vill jag kunna se röd färg som representera att man inte har utfört aktiviteten.
 
-# future version
+# Future version
 -   Som en användare vill jag kunna se hur många gånger jag borstat tänderna per dag.
 
 -   Som en användare ska jag kunna skapa en användare i ett konto. 
@@ -53,7 +53,7 @@
 
 -   Som en användare vill jag kunna välja om jag ska vara inloggad automatiskt(Kom ihåg mig ”knappen”). 
 
-## Future development user stories
+# Future development user stories
 -   Som en användare vill jag kunna tävla med de andra användare på kontot.
 
 -   En aktivitet har exempelvis 10 poäng. Vem som har mest poäng slutet av månaden vinner. 
