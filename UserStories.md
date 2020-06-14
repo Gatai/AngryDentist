@@ -57,6 +57,7 @@
 -   En aktivitet har exempelvis 10 poäng. Vem som har mest poäng slutet av månaden vinner.
 
 # Version 1
+
 -   Som en användare ska jag kunna tycka på en knapp som markerat att man har borstat tänderna.
 •	Som en användare ska jag kunna tycka på en knapp som markerat att man har använt fluor.
 •	Som en användare ska jag kunna tycka på en knapp som markerat att man har använt tandtråd.
