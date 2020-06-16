@@ -1,16 +1,20 @@
 # User stories for version 1
 
--   Som en användare ska jag kunna tycka på en knapp som markerat att man har borstat tänderna.
-
--   Som en användare ska jag kunna tycka på en knapp som markerat att man har använt fluor.
-
--   Som en användare ska jag kunna tycka på en knapp som markerat att man har använt tandtråd.
-
 -   Som en användare ska jag kunna skapa ett konto.
 
 -   Som en användare ska jag kunna loga in.
 
 -   Som en användare ska jag kunna återställa lösenord.
+
+-   Som en användare vill jag kunna se grön färg som representera att man har utfört aktiviteten.
+
+-   Som en användare vill jag kunna se röd färg som representera att man inte har utfört aktiviteten.
+
+-   Som en användare ska jag kunna tycka på en knapp som markerat att man har borstat tänderna.
+
+-   Som en användare ska jag kunna tycka på en knapp som markerat att man har använt fluor.
+
+-   Som en användare ska jag kunna tycka på en knapp som markerat att man har använt tandtråd.
 
 -   Som en användare vill jag kunna se alla aktiviteter per dag. 
 
@@ -19,10 +23,6 @@
 -   Som en användare vill jag kunna se en statistik på fluor.
 
 -   Som en användare vill jag kunna se en statistik på tandtråd.
-
--   Som en användare vill jag kunna se grön färg som representera att man har utfört aktiviteten.
-
--   Som en användare vill jag kunna se röd färg som representera att man inte har utfört aktiviteten.
 
 # Future version
 -   Som en användare vill jag kunna skriva mitt namn på kontot.
