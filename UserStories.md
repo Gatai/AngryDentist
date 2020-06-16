@@ -6,15 +6,15 @@
 
 -   Som en användare ska jag kunna återställa lösenord.
 
--   Som en användare vill jag kunna se grön färg som representera att man har utfört aktiviteten.
-
--   Som en användare vill jag kunna se röd färg som representera att man inte har utfört aktiviteten.
-
 -   Som en användare ska jag kunna tycka på en knapp som markerat att man har borstat tänderna.
 
 -   Som en användare ska jag kunna tycka på en knapp som markerat att man har använt fluor.
 
 -   Som en användare ska jag kunna tycka på en knapp som markerat att man har använt tandtråd.
+
+-   Som en användare vill jag kunna se grön färg som representera att man har utfört aktiviteten.
+
+-   Som en användare vill jag kunna se röd färg som representera att man inte har utfört aktiviteten.
 
 -   Som en användare vill jag kunna se alla aktiviteter per dag. 
 
