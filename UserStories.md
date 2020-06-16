@@ -6,7 +6,11 @@
 
 -   Som en användare ska jag kunna tycka på en knapp som markerat att man har använt tandtråd.
 
--   Som användare ska jag kunna skapa ett konto.
+-   Som en användare ska jag kunna skapa ett konto.
+
+-   Som en användare ska jag kunna loga in.
+
+-   Som en användare ska jag kunna återställa lösenord.
 
 -   Som en användare vill jag kunna skriva mitt namn på kontot.
 
