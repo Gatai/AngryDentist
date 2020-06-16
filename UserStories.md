@@ -9,13 +9,13 @@
 
 -   Som en användare vill jag kunna se röd färg som representera att man inte har utfört aktiviteten.
 
--   Som en användare vill jag kunna se alla aktiviteter per dag. 
+-   Som en användare vill jag kunna se alla aktiviteter på en dag.
 
--   Som en användare vill jag kunna se en statistik på borstat tänderna.
+-   Som en användare vill jag kunna se en statistik på borstat tänderna (Statistik på veckans).
 
--   Som en användare vill jag kunna se en statistik på fluor.
+-   Som en användare vill jag kunna se en statistik på fluor Statistik på veckans.
 
--   Som en användare vill jag kunna se en statistik på tandtråd.
+-   Som en användare vill jag kunna se en statistik på tandtråd Statistik på veckans.
 
 -   Som en användare ska jag kunna skapa ett konto.
 
