@@ -12,8 +12,6 @@
 
 -   Som en användare ska jag kunna återställa lösenord.
 
--   Som en användare vill jag kunna skriva mitt namn på kontot.
-
 -   Som en användare vill jag kunna se alla aktiviteter per dag. 
 
 -   Som en användare vill jag kunna se en statistik på borstat tänderna.
@@ -27,6 +25,8 @@
 -   Som en användare vill jag kunna se röd färg som representera att man inte har utfört aktiviteten.
 
 # Future version
+-   Som en användare vill jag kunna skriva mitt namn på kontot.
+
 -   Som en användare vill jag kunna se hur många gånger jag borstat tänderna per dag.
 
 -   Som en användare ska jag kunna skapa en användare i ett konto. 
