@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "636798080697",
+    "firebase_url": "https://angry-dentist.firebaseio.com",
+    "project_id": "angry-dentist",
+    "storage_bucket": "angry-dentist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636798080697:android:b58da05b98a0dc45c6ed68",
+        "android_client_info": {
+          "package_name": "com.gatai.AngryDentist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636798080697-rqru3h4scg82g7b71gock1139k7b5kok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOi-b0v5ijmDLK1xbvwbjRrM5de0fdAKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636798080697-rqru3h4scg82g7b71gock1139k7b5kok.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
