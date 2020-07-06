@@ -2,6 +2,11 @@ import 'package:AngryDentist/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
+
+  //constructor for widget (Register)
+  final Function toggleView;
+  Register ({this.toggleView});
+
   @override
   _RegisterState createState() => _RegisterState();
 }
@@ -9,11 +14,13 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
 
   final AuthService _auth =AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   //text field state
   String name = '';
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +30,20 @@ class _RegisterState extends State<Register> {
         backgroundColor: Colors.blue[400],
         elevation: 0.0,
         title: Text('Sign up to angry dentist'),
+        actions: <Widget>[
+          FlatButton.icon(
+            icon: Icon(Icons.person),
+            label: Text('Sign in'),
+            onPressed: () {
+              widget.toggleView();
+            },
+          )
+        ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
+          key: _formKey,
           child: Column(
             children: <Widget>[
               SizedBox(height: 20.0),
@@ -43,6 +60,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                validator: (val) => val.isEmpty ? 'Enter an email' : null,
                 decoration: new InputDecoration(
                     hintText: 'Email',
                     icon: new Icon(
@@ -55,6 +73,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
                 decoration: new InputDecoration(
                     hintText: 'Password',
                     icon: new Icon(
@@ -74,10 +93,24 @@ class _RegisterState extends State<Register> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
-                  print(email);
-                  print(password);
+                  if(_formKey .currentState.validate()){
+                    dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                    if (result == null) {
+                      setState(() => error = 'Please supply a vaild email');
+
+                      print(email);
+                      print(password);
+                    } 
+                  }else{
+                    
+                  }
                 }
-              )
+              ),
+              SizedBox(height: 12.0),
+              Text(
+                error,
+                style: TextStyle(color: Colors.redAccent, fontSize: 14.0),
+              ),
             ],
           ),
         ),
