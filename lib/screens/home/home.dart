@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 
+//Måste alltid vara med
+void main() {
+  runApp(Home());
+}
+
+
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('home'),
-      color: Colors.blueAccent,
+    return MaterialApp(
+      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor:  Colors.blueAccent),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(
+          child: Buttons(), // <-- skapar din widget
+        ),
+      ),
     );
   }
 }
