@@ -1,16 +1,25 @@
+import 'package:AngryDentist/services/auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 //Måste alltid vara med
-void main() {
-  runApp(Home());
-}
+void main() => runApp(Home());
 
+FirebaseDatabase _database = FirebaseDatabase.instance;
 
 class Home extends StatelessWidget {
+
+  Query _userQuery = _database
+    .reference()
+    .child("user")
+    .orderByChild("userId");
+    //.equalTo(widget.userId);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor:  Colors.blueAccent),
+      theme:
+          ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blueAccent),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
@@ -27,6 +36,8 @@ class Buttons extends StatefulWidget {
 }
 
 class _ButtonsState extends State<Buttons> {
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     var title = 'Angry Dentist Home Page';
@@ -34,11 +45,20 @@ class _ButtonsState extends State<Buttons> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: <Widget>[
+          FlatButton.icon(
+            icon: Icon(Icons.person),
+            label: Text('Logout'),
+            onPressed: () async {
+              await _auth.signOut();
+            },
+          ),
+        ],
       ),
       body: Container(
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
               onPressed: () {

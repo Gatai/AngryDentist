@@ -30,6 +30,7 @@ class _RegisterState extends State<Register> {
         backgroundColor: Colors.blue[400],
         elevation: 0.0,
         title: Text('Sign up to angry dentist'),
+       // centerTitle: true,
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person),
@@ -95,14 +96,9 @@ class _RegisterState extends State<Register> {
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                   
+
                     if (result == null) {
                       setState(() => error = 'Try again');
-
-                      print(email);
-                      print(password);
-                    } else{
-
                     }
                   }
                 }
