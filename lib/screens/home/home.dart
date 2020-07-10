@@ -1,27 +1,22 @@
 import 'package:AngryDentist/models/user.dart';
 import 'package:AngryDentist/services/auth.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:AngryDentist/utilities/Activities.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 //Måste alltid vara med
 void main() => runApp(Home());
 
-FirebaseDatabase _database = FirebaseDatabase.instance;
+// Inloggad user, vid instansiering av classen kommer detta att vara null
+var currentUser;
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
-
-    Query _userQuery = _database
-        .reference()
-        .child("user")
-        .orderByChild("userId")
-        .equalTo(user.uid);
-
-    var userX = User(email: "something", name: "test", uid: user.uid);
-    _database.reference().child("users").child(user.uid).set(userX.toJson());
+    
+    //Om det finns en inloggad user kommer variabeln att få informationen
+    currentUser = Provider.of<User>(context);
+    // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
 
     return MaterialApp(
       theme:
@@ -69,6 +64,9 @@ class _ButtonsState extends State<Buttons> {
             RaisedButton(
               onPressed: () {
                 print('Tryckte på flour');
+                //Anropar metod i classen Activities för att spara information (behövs inte en egen class för det, men koden blir snyggare så)
+                //Du får fylla i för resten av aktivitererna
+                new Activities().saveActivity("Flour", currentUser.uid);
               },
               child: Text('Flour'),
               color: Colors.redAccent,

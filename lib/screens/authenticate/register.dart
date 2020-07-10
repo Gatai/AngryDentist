@@ -1,4 +1,6 @@
+import 'package:AngryDentist/models/user.dart';
 import 'package:AngryDentist/services/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -99,6 +101,11 @@ class _RegisterState extends State<Register> {
 
                     if (result == null) {
                       setState(() => error = 'Try again');
+                    }
+                    else
+                    {
+                          var userX = User(email: email, name: name, uid: result.uid);
+                          Firestore.instance.collection('users').document(result.uid).setData(userX.toJson());
                     }
                   }
                 }
