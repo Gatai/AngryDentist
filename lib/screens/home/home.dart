@@ -1,6 +1,8 @@
+import 'package:AngryDentist/models/user.dart';
 import 'package:AngryDentist/services/auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 //Måste alltid vara med
 void main() => runApp(Home());
@@ -8,15 +10,19 @@ void main() => runApp(Home());
 FirebaseDatabase _database = FirebaseDatabase.instance;
 
 class Home extends StatelessWidget {
-
-  Query _userQuery = _database
-    .reference()
-    .child("user")
-    .orderByChild("userId");
-    //.equalTo(widget.userId);
-
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+
+    Query _userQuery = _database
+        .reference()
+        .child("user")
+        .orderByChild("userId")
+        .equalTo(user.uid);
+
+    var userX = User(email: "something", name: "test", uid: user.uid);
+    _database.reference().child("users").child(user.uid).set(userX.toJson());
+
     return MaterialApp(
       theme:
           ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blueAccent),

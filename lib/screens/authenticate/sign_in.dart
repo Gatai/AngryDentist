@@ -1,5 +1,4 @@
 import 'package:AngryDentist/services/auth.dart';
-import 'package:AngryDentist/models/userdata.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -86,7 +85,7 @@ class _SignInState extends State<SignIn> {
                           setState(() {
                             error = 'Could not sign in with those credentials';
                           });
-                        }else{
+                        } else {
                           
                         }
                       }
