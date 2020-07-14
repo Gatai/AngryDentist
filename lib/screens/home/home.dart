@@ -1,6 +1,7 @@
 import 'package:AngryDentist/models/user.dart';
 import 'package:AngryDentist/services/auth.dart';
-import 'package:AngryDentist/utilities/Activities.dart';
+import 'package:AngryDentist/utilities/activities.dart';
+import 'package:AngryDentist/utilities/users.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +16,13 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Om det finns en inloggad user kommer variabeln att få informationen
+    
     currentUser = Provider.of<User>(context);
     // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
     final AuthService _auth = AuthService();
+
+    print("Print ------------------------------------------------- ");
+    print(  new Users().getUserName(currentUser.uid));
 
     return MaterialApp(
       theme:
@@ -43,6 +48,7 @@ class Home extends StatelessWidget {
             children: <Widget>[
               new Text(
                 "Hello (username)",
+              //  new Users().getUserName(currentUser.uid),
                 style: new TextStyle(
                     fontSize: 20.0,
                     color: const Color(0xFF000000),
@@ -74,7 +80,6 @@ class _ButtonsState extends State<Buttons> {
             onPressed: () {
               print('Tryckte på flour');
               //Anropar metod i classen Activities för att spara information (behövs inte en egen class för det, men koden blir snyggare så)
-              //Du får fylla i för resten av aktivitererna
               new Activities().saveActivity("Flour", currentUser.uid);
             },
             child: Text(
@@ -89,6 +94,7 @@ class _ButtonsState extends State<Buttons> {
           RaisedButton(
             onPressed: () {
               print('Tryckte på tandtråd');
+              new Activities().saveActivity("Tandtråd", currentUser.userId);
             },
             child: Text(
               'Tandtråd',
@@ -102,6 +108,7 @@ class _ButtonsState extends State<Buttons> {
           RaisedButton(
             onPressed: () {
               print('Tryckte på borsta tänderna');
+              new Activities().saveActivity("Borstat tänderna", currentUser.userId);
             },
             child: Text(
               'Borsta tänderna',
