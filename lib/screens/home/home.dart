@@ -12,18 +12,30 @@ final title = 'Angry Dentist Home Page';
 // Inloggad user, vid instansiering av classen kommer detta att vara null
 var currentUser;
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+var hello = "Hello";
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     //Om det finns en inloggad user kommer variabeln att få informationen
-    
+
     currentUser = Provider.of<User>(context);
     // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
     final AuthService _auth = AuthService();
 
     print("Print ------------------------------------------------- ");
-    print(  new Users().getUserName(currentUser.uid));
-
+    var info = new Users().getUserName(currentUser.uid);
+    if (info == null) {
+      print("info is null");
+    } else {
+      print("Print " + info.name);
+      setState(()=> hello += " " + info.name);
+    }
     return MaterialApp(
       theme:
           ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blueAccent),
@@ -47,8 +59,8 @@ class Home extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               new Text(
-                "Hello (username)",
-              //  new Users().getUserName(currentUser.uid),
+                hello,
+                // new Users().getUserName(currentUser.uid),
                 style: new TextStyle(
                     fontSize: 20.0,
                     color: const Color(0xFF000000),
@@ -108,7 +120,8 @@ class _ButtonsState extends State<Buttons> {
           RaisedButton(
             onPressed: () {
               print('Tryckte på borsta tänderna');
-              new Activities().saveActivity("Borstat tänderna", currentUser.userId);
+              new Activities()
+                  .saveActivity("Borstat tänderna", currentUser.userId);
             },
             child: Text(
               'Borsta tänderna',
