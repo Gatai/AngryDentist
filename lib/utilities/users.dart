@@ -3,12 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // class för att hantera User
 class Users {
-  Firestore _database = Firestore.instance;
+  static Firestore _database = Firestore.instance;
 
   //metod för att hämta en användare
-  User getUserName(String userUid) {
+  static Future<User> getUser(String userUid) async {
+    return await getUserData(userUid);
+  }
+
+  static Future<User> getUserData(String userUid) async {
     print("print apa");
-    var user;
+    var user = new User();
     _database
         .collection("users")
         .where("uid", isEqualTo: userUid)

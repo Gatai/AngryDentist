@@ -1,7 +1,7 @@
 import 'package:AngryDentist/models/user.dart';
 import 'package:AngryDentist/services/auth.dart';
-import 'package:AngryDentist/utilities/activities.dart';
-import 'package:AngryDentist/utilities/users.dart';
+import 'package:AngryDentist/widgets/helloWidget.dart';
+import 'package:AngryDentist/widgets/buttonsWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +17,6 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-var hello = "Hello";
-
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
@@ -28,14 +26,6 @@ class _HomeState extends State<Home> {
     // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
     final AuthService _auth = AuthService();
 
-    print("Print ------------------------------------------------- ");
-    var info = new Users().getUserName(currentUser.uid);
-    if (info == null) {
-      print("info is null");
-    } else {
-      print("Print " + info.name);
-      setState(()=> hello += " " + info.name);
-    }
     return MaterialApp(
       theme:
           ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blueAccent),
@@ -57,83 +47,9 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Text(
-                hello,
-                // new Users().getUserName(currentUser.uid),
-                style: new TextStyle(
-                    fontSize: 20.0,
-                    color: const Color(0xFF000000),
-                    fontWeight: FontWeight.w200,
-                    fontFamily: "Roboto"),
-              ),
-              Buttons()
-            ]),
+            children: <Widget>[HelloWidget(), ButtonsWidget()]),
       ),
     );
   }
 }
 
-class Buttons extends StatefulWidget {
-  @override
-  _ButtonsState createState() => _ButtonsState();
-}
-
-class _ButtonsState extends State<Buttons> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          RaisedButton(
-            onPressed: () {
-              print('Tryckte på flour');
-              //Anropar metod i classen Activities för att spara information (behövs inte en egen class för det, men koden blir snyggare så)
-              new Activities().saveActivity("Flour", currentUser.uid);
-            },
-            child: Text(
-              'Flour',
-              style: new TextStyle(fontSize: 12.0),
-            ),
-            color: Colors.redAccent,
-            textColor: Colors.white,
-            padding: EdgeInsets.all(10.0),
-            splashColor: Colors.yellowAccent,
-          ),
-          RaisedButton(
-            onPressed: () {
-              print('Tryckte på tandtråd');
-              new Activities().saveActivity("Tandtråd", currentUser.userId);
-            },
-            child: Text(
-              'Tandtråd',
-              style: new TextStyle(fontSize: 12.0),
-            ),
-            color: Colors.redAccent,
-            textColor: Colors.white,
-            padding: EdgeInsets.all(10.0),
-            splashColor: Colors.yellowAccent,
-          ),
-          RaisedButton(
-            onPressed: () {
-              print('Tryckte på borsta tänderna');
-              new Activities()
-                  .saveActivity("Borstat tänderna", currentUser.userId);
-            },
-            child: Text(
-              'Borsta tänderna',
-              style: new TextStyle(fontSize: 12.0),
-            ),
-            color: Colors.red,
-            textColor: Colors.white,
-            padding: EdgeInsets.all(10.0),
-            splashColor: Colors.yellowAccent,
-          ),
-        ],
-      ),
-    );
-  }
-}

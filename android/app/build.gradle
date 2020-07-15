@@ -28,6 +28,20 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     compileSdkVersion 28
 
+    dexOptions {
+        preDexLibraries true
+    }
+
+    buildTypes {
+        release {
+            // Disables PNG crunching on RELEASE build type
+            crunchPngs false // Enabled by default for RELEASE build type
+        }
+         debug {
+            ext.enableCrashlytics = false
+        }
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -41,6 +55,7 @@ android {
         applicationId "com.gatai.AngryDentist"
         minSdkVersion 21
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
