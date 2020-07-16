@@ -11,7 +11,9 @@ class ButtonsWidget extends StatefulWidget {
 class _ButtonsWidgetState extends State<ButtonsWidget> {
   @override
   Widget build(BuildContext context) {
-   var currentUser = Provider.of<User>(context);
+   
+     var currentUser = Provider.of<User>(context);
+
     return Container(
       height: 200,
       child: Row(

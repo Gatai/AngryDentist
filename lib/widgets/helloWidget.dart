@@ -11,9 +11,13 @@ class HelloWidget extends StatefulWidget {
 class _HelloWidget extends State<HelloWidget> {
   static String message;
 
+  //use constructor to choose if the buttons should be day or night buttons
+
   @override
   Widget build(BuildContext context) {
     var currentUser = Provider.of<User>(context);
+    // Fetch from database using current date + "m" / "n" as key
+    // evaluate button colors depending on activity booleans
 
     if (message == null) {
       //Set default value
