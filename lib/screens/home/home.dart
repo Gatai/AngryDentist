@@ -47,7 +47,9 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[HelloWidget(), Text("Morning"), ButtonsWidget(), Text("Night"), ButtonsWidget()]),
+            children: <Widget>[HelloWidget(), Text("Morning"),ButtonsWidget(isMorning: true), Text("Night"), ButtonsWidget(isMorning: false)]),
+            
+
       ),
     );
   }
