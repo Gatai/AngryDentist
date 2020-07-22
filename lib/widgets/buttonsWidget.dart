@@ -20,6 +20,7 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   var pressAttentionTeethBrushed = false;
   var pressAttentionFloss = false;
   var isMorning = false;
+  var hasFetched = false;
 
   DateFormat dateFormat = DateFormat("yyyyMMdd");
   DateFormat dateYearMonth = DateFormat("yyyyMM");
@@ -30,28 +31,33 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   Widget build(BuildContext context) {
     var currentUser = Provider.of<Activity>(context);
 
-    // Hämta aktivicy från DB
-    //Fetch data from database
-   Firestore.instance
-        .collection("activities")
-        .document(currentUser.userId)
-        .collection(dateYearMonth.format(DateTime.now()))
-        .document(dateFormat.format(DateTime.now()) + (isMorning ? "M" : "N"))
-        .get()
-        .then((value) {
-      //Triggers after database reply
-      if (value.data != null) {
-        print("got " + value.data["sortKey"]);
-        //Trigger widget update
-        if (this.mounted) {
-          setState(() {
-            pressAttentionFluorine = value.data["fluorine"];
-            pressAttentionTeethBrushed = value.data["teethBrushed"];
-            pressAttentionFloss = value.data["floss"];
-          });
+    if (!hasFetched) {
+      // Hämta aktivicy från DB
+      //Fetch data from database
+      Firestore.instance
+          .collection("activities")
+          .document(currentUser.userId)
+          .collection(dateYearMonth.format(DateTime.now()))
+          .document(dateFormat.format(DateTime.now()) + (isMorning ? "M" : "N"))
+          .get()
+          .then((value) {
+        //Triggers after database reply
+        if (value.data != null) {
+          print("I got " +
+              value.data["sortKey"] +
+              (isMorning ? "Morning" : "Night"));
+          //Trigger widget update
+          if (this.mounted) {
+            setState(() {
+              pressAttentionFluorine = value.data["fluorine"];
+              pressAttentionTeethBrushed = value.data["teethBrushed"];
+              pressAttentionFloss = value.data["floss"];
+              hasFetched = true;
+            });
+          }
         }
-      }
-    });
+      });
+    }
 
     return Container(
       height: 200,
