@@ -1,4 +1,4 @@
-import 'package:AngryDentist/models/user.dart';
+import 'package:AngryDentist/models/activity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class _HelloWidget extends State<HelloWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var currentUser = Provider.of<User>(context);
+    var currentUser = Provider.of<Activity>(context);
     // Fetch from database using current date + "m" / "n" as key
     // evaluate button colors depending on activity booleans
 
@@ -25,18 +25,16 @@ class _HelloWidget extends State<HelloWidget> {
 
       //Fetch data from database
       Firestore.instance
-          .collection("users")
-          .where("uid", isEqualTo: currentUser.uid)
-          .getDocuments()
+          .collection("activities")
+          .document(currentUser.userId)
+          .get()
           .then((value) {
         //Triggers after database reply
-        value.documents.forEach((result) {
-          print("got " + result.data["name"]);
+          print("got " + value.data["name"]);
           //Trigger widget update
           setState(() {
-            message = "Hello ${result.data["name"]}";
+            message = "Hello ${value.data["name"]}";
           });
-        });
       });
     }
 
@@ -44,8 +42,8 @@ class _HelloWidget extends State<HelloWidget> {
     return Text(
       message,
       style: new TextStyle(
-          fontSize: 20.0,
-          color: const Color(0xFF000000),
+          fontSize: 50.0,
+          color:  Colors.white,
           fontWeight: FontWeight.w200,
           fontFamily: "Roboto"),
     );

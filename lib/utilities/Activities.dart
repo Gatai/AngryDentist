@@ -5,20 +5,23 @@ import 'package:intl/intl.dart';
 // class för att hantera Activities
 class Activities {
   DateFormat dateFormat = DateFormat("yyyyMMdd");
+  DateFormat dateYearMonth = DateFormat("yyyyMM");
 
   //metod för att spara en activity
-  saveActivity(String userId, bool morning, bool teehBrushed, bool fluorine, bool floss) {
+  saveActivity(String userId, bool morning, bool teethBrushed, bool fluorine, bool floss) {
     var activity = Activity(
         created: DateTime.now(), // Lägger till tid och datum
         userId: userId,  //lägger in user ID
         sortKey: dateFormat.format(DateTime.now()) + (morning ? "M" : "N"), // Denna är bara en sträng av dagens datum, det är alltid lättare att sortera mot en sträng :) ej nödvändig, ta bort den om du inte använder det
-        teehBrushed: teehBrushed,
+        teethBrushed: teethBrushed,
         fluorine: fluorine,
         floss: floss,
         );
 
     Firestore.instance
-        .collection('Activities')
+        .collection('activities')
+        .document(userId)
+        .collection(dateYearMonth.format(DateTime.now()))
         .document(activity.sortKey) // <-- skapar ett dokument med Id som i sortKey
         .setData(activity.toJson());
 

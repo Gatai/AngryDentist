@@ -1,4 +1,4 @@
-import 'package:AngryDentist/models/user.dart';
+import 'package:AngryDentist/models/activity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -6,12 +6,12 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create user obj based on firebase user
-  User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+  Activity _userFromFirebaseUser(FirebaseUser user) {
+    return user != null ? Activity(userId: user.uid) : null;
   }
 
    // auth change user stream
-  Stream<User> get user {
+  Stream<Activity> get user {
     return _auth.onAuthStateChanged
       //.map((FirebaseUser user) => _userFromFirebaseUser(user));
       .map(_userFromFirebaseUser);

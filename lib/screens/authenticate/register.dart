@@ -104,8 +104,8 @@ class _RegisterState extends State<Register> {
                     }
                     else
                     {
-                          var userX = User(email: email, name: name, uid: result.uid);
-                          Firestore.instance.collection('users').document(result.uid).setData(userX.toJson());
+                          var userX = User(email: email, name: name, userId: result.userId);
+                          Firestore.instance.collection('activities').document(result.userId).setData(userX.toJson());
                     }
                   }
                 }

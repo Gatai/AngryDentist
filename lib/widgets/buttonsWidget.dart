@@ -1,4 +1,4 @@
-import 'package:AngryDentist/models/user.dart';
+import 'package:AngryDentist/models/activity.dart';
 import 'package:AngryDentist/utilities/activities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -17,37 +17,42 @@ class ButtonsWidget extends StatefulWidget {
 
 class _ButtonsWidgetState extends State<ButtonsWidget> {
   var pressAttentionFluorine = false;
-  var pressAttentionTeehBrushed = false;
+  var pressAttentionTeethBrushed = false;
   var pressAttentionFloss = false;
   var isMorning = false;
+
   DateFormat dateFormat = DateFormat("yyyyMMdd");
+  DateFormat dateYearMonth = DateFormat("yyyyMM");
 
   _ButtonsWidgetState({this.isMorning});
 
   @override
   Widget build(BuildContext context) {
-    var currentUser = Provider.of<User>(context);
+    var currentUser = Provider.of<Activity>(context);
 
     // Hämta aktivicy från DB
     //Fetch data from database
-    Firestore.instance
-        .collection("Activities")
-        .where("uid", isEqualTo: currentUser.uid)
-        .where("sortKey",
-            isEqualTo:
-                dateFormat.format(DateTime.now()) + (isMorning ? "M" : "N"))
-        .getDocuments()
+   Firestore.instance
+        .collection("activities")
+        .document(currentUser.userId)
+        .collection(dateYearMonth.format(DateTime.now()))
+        .document(dateFormat.format(DateTime.now()) + (isMorning ? "M" : "N"))
+        .get()
         .then((value) {
       //Triggers after database reply
-      value.documents.forEach((result) {
-         print("got " + result.data["sortKey"]);
+      if (value.data != null) {
+        print("got " + value.data["sortKey"]);
         //Trigger widget update
-        setState(() {
-          pressAttentionFluorine = result.data["fluorine"];
-        });
-      });
+        if (this.mounted) {
+          setState(() {
+            pressAttentionFluorine = value.data["fluorine"];
+            pressAttentionTeethBrushed = value.data["teethBrushed"];
+            pressAttentionFloss = value.data["floss"];
+          });
+        }
+      }
     });
-    
+
     return Container(
       height: 200,
       child: Row(
@@ -73,9 +78,9 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
               setState(() => pressAttentionFluorine = !pressAttentionFluorine);
 
               new Activities().saveActivity(
-                  currentUser.uid,
+                  currentUser.userId,
                   isMorning,
-                  pressAttentionTeehBrushed,
+                  pressAttentionTeethBrushed,
                   pressAttentionFluorine,
                   pressAttentionFloss);
             },
@@ -98,15 +103,15 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
               setState(() => pressAttentionFloss = !pressAttentionFloss);
 
               new Activities().saveActivity(
-                  currentUser.uid,
+                  currentUser.userId,
                   isMorning,
-                  pressAttentionTeehBrushed,
+                  pressAttentionTeethBrushed,
                   pressAttentionFluorine,
                   pressAttentionFloss);
             },
           ),
           RaisedButton(
-            color: pressAttentionTeehBrushed ? Colors.green : Colors.redAccent,
+            color: pressAttentionTeethBrushed ? Colors.green : Colors.redAccent,
 
             child: Text(
               'TeehBrushed',
@@ -120,13 +125,13 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
             onPressed: () {
               print('Tryckte på teehBrushed');
 
-              setState(
-                  () => pressAttentionTeehBrushed = !pressAttentionTeehBrushed);
+              setState(() =>
+                  pressAttentionTeethBrushed = !pressAttentionTeethBrushed);
 
               new Activities().saveActivity(
-                  currentUser.uid,
+                  currentUser.userId,
                   isMorning,
-                  pressAttentionTeehBrushed,
+                  pressAttentionTeethBrushed,
                   pressAttentionFluorine,
                   pressAttentionFloss);
             },

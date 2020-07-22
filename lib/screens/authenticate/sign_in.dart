@@ -11,7 +11,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -59,7 +58,9 @@ class _SignInState extends State<SignIn> {
                     }),
                 SizedBox(height: 20.0),
                 TextFormField(
-                    validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+                    validator: (val) => val.length < 6
+                        ? 'Enter a password 6+ chars long'
+                        : null,
                     decoration: new InputDecoration(
                         hintText: 'Password',
                         icon: new Icon(
@@ -79,14 +80,18 @@ class _SignInState extends State<SignIn> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                        try {
+                          dynamic result = await _auth.signInWithEmailAndPassword(email, password);
 
-                        if (result == null) {
-                          setState(() {
-                            error = 'Could not sign in with those credentials';
-                          });
-                        } else {
-                          
+                          if (result == null) {
+                            setState(() {
+                              error = 'Could not sign in with those credentials';
+                            });
+                          } else {}
+                        } catch (e) {
+                           setState(() {
+                              error = 'Could not sign in with those credentials';
+                            });
                         }
                       }
                     }),
