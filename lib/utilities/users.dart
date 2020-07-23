@@ -1,3 +1,4 @@
+/*
 import 'package:AngryDentist/models/activity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -29,3 +30,4 @@ class Users {
     return user;
   }
 }
+*/

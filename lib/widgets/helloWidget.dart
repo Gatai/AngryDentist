@@ -10,19 +10,34 @@ class HelloWidget extends StatefulWidget {
 
 class _HelloWidget extends State<HelloWidget> {
   static String message;
+  static String userId;
 
   //use constructor to choose if the buttons should be day or night buttons
 
   @override
   Widget build(BuildContext context) {
-    var currentUser = Provider.of<Activity>(context);
     // Fetch from database using current date + "m" / "n" as key
     // evaluate button colors depending on activity booleans
 
-    if (message == null) {
+    setupMessage();
+
+    //Return result
+    return Text(
+      message,
+      style: new TextStyle(
+          fontSize: 50.0,
+          color: Colors.white,
+          fontWeight: FontWeight.w200,
+          fontFamily: "Roboto"),
+    );
+  }
+
+  void setupMessage() {
+    var currentUser = Provider.of<Activity>(context);
+
+    if (message == null || userId != currentUser.userId) {
       //Set default value
       message = "Hello";
-
       //Fetch data from database
       Firestore.instance
           .collection("activities")
@@ -30,22 +45,13 @@ class _HelloWidget extends State<HelloWidget> {
           .get()
           .then((value) {
         //Triggers after database reply
-          print("got " + value.data["name"]);
-          //Trigger widget update
-          setState(() {
-            message = "Hello ${value.data["name"]}";
-          });
+        print("got " + value.data["name"]);
+        //Trigger widget update
+        setState(() {
+          message = "Hello ${value.data["name"]}";
+          userId = currentUser.userId;
+        });
       });
     }
-
-    //Return result
-    return Text(
-      message,
-      style: new TextStyle(
-          fontSize: 50.0,
-          color:  Colors.white,
-          fontWeight: FontWeight.w200,
-          fontFamily: "Roboto"),
-    );
   }
 }
