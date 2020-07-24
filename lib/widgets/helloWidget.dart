@@ -26,7 +26,7 @@ class _HelloWidget extends State<HelloWidget> {
       message,
       style: new TextStyle(
           fontSize: 50.0,
-          color: Colors.white,
+          color: Colors.black,
           fontWeight: FontWeight.w200,
           fontFamily: "Roboto"),
     );

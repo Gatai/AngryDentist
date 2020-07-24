@@ -25,6 +25,11 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   DateFormat dateFormat = DateFormat("yyyyMMdd");
   DateFormat dateYearMonth = DateFormat("yyyyMM");
 
+  var textStyle = new TextStyle(fontSize: 18.0);
+  var textColor = Colors.white;
+  var textPadding = EdgeInsets.all(20.0);
+  var textSplashColor = Colors.teal;
+
   _ButtonsWidgetState({this.isMorning});
 
   @override
@@ -34,23 +39,23 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
     initButtons(currentUser);
 
     return Container(
-      height: 200,
+      height: 120,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           RaisedButton(
             color: pressAttentionFluorine ? Colors.green : Colors.redAccent,
-
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ),
             child: Text(
               'Fluorine',
-              style: new TextStyle(fontSize: 12.0),
+              style: textStyle,
             ),
-            //   color: Colors.redAccent,
-            textColor: Colors.white,
-            padding: EdgeInsets.all(10.0),
-            splashColor: Colors.yellowAccent,
-
+            textColor: textColor,
+            padding: textPadding,
+            splashColor: textSplashColor,
             onPressed: () {
               print('Tryckte på fluorine');
               //Anropar metod i classen Activities för att spara information (behövs inte en egen class för det, men koden blir snyggare så)
@@ -67,16 +72,16 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
           ),
           RaisedButton(
             color: pressAttentionFloss ? Colors.green : Colors.redAccent,
-
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ),
             child: Text(
               'Floss',
-              style: new TextStyle(fontSize: 12.0),
+              style: textStyle,
             ),
-            //color: Colors.redAccent,
-            textColor: Colors.white,
-            padding: EdgeInsets.all(10.0),
-            splashColor: Colors.yellowAccent,
-
+            textColor: textColor,
+            padding: textPadding,
+            splashColor: textSplashColor,
             onPressed: () {
               print('Tryckte på floss');
 
@@ -92,18 +97,18 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
           ),
           RaisedButton(
             color: pressAttentionTeethBrushed ? Colors.green : Colors.redAccent,
-
-            child: Text(
-              'TeehBrushed',
-              style: new TextStyle(fontSize: 12.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
             ),
-            //  color: Colors.red,
-            textColor: Colors.white,
-            padding: EdgeInsets.all(10.0),
-            splashColor: Colors.yellowAccent,
-
+            child: Text(
+              'Teeth Brushed',
+              style: textStyle,
+            ),
+            textColor: textColor,
+            padding: textPadding,
+            splashColor: textSplashColor,
             onPressed: () {
-              print('Tryckte på teehBrushed');
+              print('Tryckte på teeth Brushed');
 
               setState(() =>
                   pressAttentionTeethBrushed = !pressAttentionTeethBrushed);

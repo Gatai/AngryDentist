@@ -25,14 +25,23 @@ class _HomeState extends State<Home> {
     currentUser = Provider.of<Activity>(context);
     // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
     final AuthService _auth = AuthService();
+    var paddingAbove = EdgeInsets.fromLTRB(20, 20, 20, 20);
+    var paddingBelow = EdgeInsets.fromLTRB(10, 10, 10, 10);
 
     return MaterialApp(
       theme:
-          ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blueAccent),
+          // ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blueAccent),
+          ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.white),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(
+            title,
+            style: new TextStyle(
+              color: Colors.black54,
+            ),
+          ),
+          backgroundColor: Colors.teal,
           actions: <Widget>[
             FlatButton.icon(
               icon: Icon(Icons.person),
@@ -47,11 +56,38 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[HelloWidget(), Text("Morning"),ButtonsWidget(isMorning: true), Text("Night"), ButtonsWidget(isMorning: false)]),
-            
-
+            children: <Widget>[
+              HelloWidget(),
+              Padding(
+                padding: paddingAbove,
+              ),
+              Text(
+                "Morning",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+              Padding(
+                padding: paddingBelow,
+              ),
+              ButtonsWidget(isMorning: true),
+              Padding(
+                padding: paddingAbove,
+              ),
+              Text(
+                "Night",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+              Padding(
+                padding: paddingBelow,
+              ),
+              ButtonsWidget(isMorning: false)
+            ]),
       ),
     );
   }
 }
-
