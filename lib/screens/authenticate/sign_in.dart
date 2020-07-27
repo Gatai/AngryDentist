@@ -14,6 +14,8 @@ class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
+  var title = 'Sign in to angry dentist';
+
   //text field state
   String error = '';
   String email = '';
@@ -22,11 +24,17 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue[100],
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.blue[400],
+          backgroundColor: Colors.teal,
           elevation: 0.0,
-          title: Text('Sign in to angry dentist'),
+          title: Text(
+            title,
+           style: new TextStyle(
+              color: Colors.black54,
+            ),
+            ),
+
           //centerTitle: true,
           actions: <Widget>[
             FlatButton.icon(

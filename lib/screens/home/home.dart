@@ -1,5 +1,6 @@
 import 'package:AngryDentist/models/activity.dart';
 import 'package:AngryDentist/services/auth.dart';
+import 'package:AngryDentist/widgets/dateTimeWidget.dart';
 import 'package:AngryDentist/widgets/helloWidget.dart';
 import 'package:AngryDentist/widgets/buttonsWidget.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,9 @@ class _HomeState extends State<Home> {
     currentUser = Provider.of<Activity>(context);
     // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
     final AuthService _auth = AuthService();
-    var paddingAbove = EdgeInsets.fromLTRB(20, 20, 20, 20);
+    var paddingAbove = EdgeInsets.fromLTRB(17, 17, 17, 17);
     var paddingBelow = EdgeInsets.fromLTRB(10, 10, 10, 10);
+    var date = DateTime.now();
 
     return MaterialApp(
       theme:
@@ -58,6 +60,7 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               HelloWidget(),
+              DateTimeWidget(),
               Padding(
                 padding: paddingAbove,
               ),

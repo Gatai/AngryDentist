@@ -12,7 +12,7 @@ class ButtonsWidget extends StatefulWidget {
 
   @override
   _ButtonsWidgetState createState() =>
-      _ButtonsWidgetState(isMorning: isMorning);
+  _ButtonsWidgetState(isMorning: isMorning);
 }
 
 class _ButtonsWidgetState extends State<ButtonsWidget> {
