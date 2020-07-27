@@ -28,7 +28,6 @@ class _HomeState extends State<Home> {
     final AuthService _auth = AuthService();
     var paddingAbove = EdgeInsets.fromLTRB(17, 17, 17, 17);
     var paddingBelow = EdgeInsets.fromLTRB(10, 10, 10, 10);
-    var date = DateTime.now();
 
     return MaterialApp(
       theme:

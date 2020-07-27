@@ -22,13 +22,29 @@ class _HelloWidget extends State<HelloWidget> {
     setupMessage();
 
     //Return result
-    return Text(
-      message,
-      style: new TextStyle(
-          fontSize: 50.0,
-          color: Colors.black,
-          fontWeight: FontWeight.w200,
-          fontFamily: "Roboto"),
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+
+        children: <Widget>[
+          Text(
+            greeting(),
+            style: new TextStyle(
+                fontSize: 50.0,
+                color: Colors.black,
+                fontWeight: FontWeight.w200,
+                fontFamily: "Roboto"),
+          ),
+           Text(
+             message,
+            style: new TextStyle(
+                fontSize: 50.0,
+                color: Colors.black,
+                fontWeight: FontWeight.w200,
+                fontFamily: "Roboto"),
+          ),
+        ],
+      ),
     );
   }
 
@@ -37,7 +53,7 @@ class _HelloWidget extends State<HelloWidget> {
 
     if (message == null || userId != currentUser.userId) {
       //Set default value
-      message = "Hello";
+      message = greeting();
       //Fetch data from database
       Firestore.instance
           .collection("activities")
@@ -48,10 +64,21 @@ class _HelloWidget extends State<HelloWidget> {
         print("got " + value.data["name"]);
         //Trigger widget update
         setState(() {
-          message = "Hello ${value.data["name"]}";
+          message = " ${value.data["name"]}";
           userId = currentUser.userId;
         });
       });
     }
+  }
+
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Morning';
+    }
+    if (hour < 17) {
+      return 'Afternoon';
+    }
+    return 'Evening';
   }
 }
