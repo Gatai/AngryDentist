@@ -12,8 +12,6 @@ class _HelloWidget extends State<HelloWidget> {
   static String message;
   static String userId;
 
-  //use constructor to choose if the buttons should be day or night buttons
-
   @override
   Widget build(BuildContext context) {
     // Fetch from database using current date + "m" / "n" as key

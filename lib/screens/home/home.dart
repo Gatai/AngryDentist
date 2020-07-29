@@ -21,8 +21,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    //Om det finns en inloggad user kommer variabeln att få informationen
 
+    //Om det finns en inloggad user kommer variabeln att få informationen
     currentUser = Provider.of<Activity>(context);
     // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
     final AuthService _auth = AuthService();

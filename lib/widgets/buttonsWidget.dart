@@ -11,11 +11,13 @@ class ButtonsWidget extends StatefulWidget {
   ButtonsWidget({this.isMorning});
 
   @override
-  _ButtonsWidgetState createState() =>
-  _ButtonsWidgetState(isMorning: isMorning);
+  _ButtonsWidgetState createState() => _ButtonsWidgetState(isMorning: isMorning);
 }
 
 class _ButtonsWidgetState extends State<ButtonsWidget> {
+  
+  _ButtonsWidgetState({this.isMorning});
+
   var pressAttentionFluorine = false;
   var pressAttentionTeethBrushed = false;
   var pressAttentionFloss = false;
@@ -29,8 +31,7 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   var textColor = Colors.white;
   var textPadding = EdgeInsets.all(20.0);
   var textSplashColor = Colors.teal;
-
-  _ButtonsWidgetState({this.isMorning});
+  var borderRadius = BorderRadius.circular(18.0);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
           RaisedButton(
             color: pressAttentionFluorine ? Colors.green : Colors.redAccent,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
+              borderRadius: borderRadius,
             ),
             child: Text(
               'Fluorine',
@@ -73,7 +74,7 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
           RaisedButton(
             color: pressAttentionFloss ? Colors.green : Colors.redAccent,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
+              borderRadius: borderRadius,
             ),
             child: Text(
               'Floss',
@@ -98,7 +99,7 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
           RaisedButton(
             color: pressAttentionTeethBrushed ? Colors.green : Colors.redAccent,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
+              borderRadius: borderRadius,
             ),
             child: Text(
               'Teeth Brushed',
