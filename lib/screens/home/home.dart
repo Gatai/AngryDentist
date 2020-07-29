@@ -1,5 +1,6 @@
 import 'package:AngryDentist/models/activity.dart';
 import 'package:AngryDentist/services/auth.dart';
+import 'package:AngryDentist/sideBar/sideBarWidget.dart';
 import 'package:AngryDentist/widgets/dateTimeWidget.dart';
 import 'package:AngryDentist/widgets/helloWidget.dart';
 import 'package:AngryDentist/widgets/buttonsWidget.dart';
@@ -8,7 +9,7 @@ import 'package:provider/provider.dart';
 
 //Måste alltid vara med
 void main() => runApp(Home());
-final title = 'Angry Dentist Home Page';
+final title = 'Angry Dentist';
 
 // Inloggad user, vid instansiering av classen kommer detta att vara null
 var currentUser;
@@ -21,7 +22,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-
     //Om det finns en inloggad user kommer variabeln att få informationen
     currentUser = Provider.of<Activity>(context);
     // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
@@ -30,11 +30,12 @@ class _HomeState extends State<Home> {
     var paddingBelow = EdgeInsets.fromLTRB(10, 10, 10, 10);
 
     return MaterialApp(
-      theme:
-          // ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blueAccent),
-          ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.white),
       debugShowCheckedModeBanner: false,
+      theme:
+          ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.white),
+          // ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blueAccent),
       home: Scaffold(
+      drawer: SideBarWidget(),
         appBar: AppBar(
           title: Text(
             title,

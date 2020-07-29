@@ -12,6 +12,7 @@ class _HelloWidget extends State<HelloWidget> {
   static String message;
   static String userId;
 
+
   @override
   Widget build(BuildContext context) {
     // Fetch from database using current date + "m" / "n" as key
