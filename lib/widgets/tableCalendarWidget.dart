@@ -1,3 +1,4 @@
+import 'package:AngryDentist/widgets/buttonsWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -8,6 +9,9 @@ class TableCalendarWidget extends StatefulWidget {
 
 class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   CalendarController _calendarController;
+
+  var dateTime = DateTime.now();
+
 
   @override
   void initState() {
@@ -33,7 +37,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TableCalendar(
-              initialCalendarFormat: CalendarFormat.week,
+              initialCalendarFormat: CalendarFormat.month,
               calendarStyle: CalendarStyle(
                   todayColor: Colors.orange,
                   selectedColor:Colors.teal,
@@ -53,6 +57,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               ),
               startingDayOfWeek: StartingDayOfWeek.monday,
               onDaySelected: (date, events) {
+                setState(() {
+                  dateTime = date;
+                });
                 print(date.toIso8601String());
               },
               builders: CalendarBuilders(
@@ -79,7 +86,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                     )),
               ),
               calendarController: _calendarController,
-            )
+            ),
+            //EventWidget()
+            ButtonsWidget(isMorning: true, dateTime: dateTime),
           ],
         ),
       ),

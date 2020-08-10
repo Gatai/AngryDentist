@@ -7,22 +7,25 @@ import 'package:provider/provider.dart';
 
 class ButtonsWidget extends StatefulWidget {
   final bool isMorning;
+  final DateTime dateTime;
 
-  ButtonsWidget({this.isMorning});
+
+  ButtonsWidget({this.isMorning, this.dateTime});
 
   @override
-  _ButtonsWidgetState createState() => _ButtonsWidgetState(isMorning: isMorning);
+  _ButtonsWidgetState createState() => _ButtonsWidgetState(isMorning: isMorning, dateTime: dateTime);
 }
 
 class _ButtonsWidgetState extends State<ButtonsWidget> {
   
-  _ButtonsWidgetState({this.isMorning});
+  _ButtonsWidgetState({this.isMorning, this.dateTime});
 
   var pressAttentionFluorine = false;
   var pressAttentionTeethBrushed = false;
   var pressAttentionFloss = false;
   var isMorning = false;
-  var hasFetched = "";
+  var hasFetched;
+  var dateTime = DateTime.now();
 
   DateFormat dateFormat = DateFormat("yyyyMMdd");
   DateFormat dateYearMonth = DateFormat("yyyyMM");
@@ -36,6 +39,10 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   @override
   Widget build(BuildContext context) {
     var currentUser = Provider.of<Activity>(context);
+   
+    if(dateTime == null){
+      dateTime = DateTime.now();
+    }
 
     initButtons(currentUser);
 
@@ -128,14 +135,14 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   }
 
   void initButtons(Activity currentUser) {
-    if (hasFetched != currentUser.userId) {
+    if (hasFetched != dateTime) {
       // Hämta aktivicy från DB
       //Fetch data from database
       Firestore.instance
           .collection("activities")
           .document(currentUser.userId)
-          .collection(dateYearMonth.format(DateTime.now()))
-          .document(dateFormat.format(DateTime.now()) + (isMorning ? "M" : "N"))
+          .collection(dateYearMonth.format(dateTime))
+          .document(dateFormat.format(dateTime) + (isMorning ? "M" : "N"))
           .get()
           .then((value) {
         //Triggers after database reply
@@ -149,7 +156,7 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
               pressAttentionFluorine = value.data["fluorine"];
               pressAttentionTeethBrushed = value.data["teethBrushed"];
               pressAttentionFloss = value.data["floss"];
-              hasFetched = currentUser.userId;
+              hasFetched = dateTime;
             });
           }
         }
