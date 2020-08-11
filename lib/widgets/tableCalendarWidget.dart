@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TableCalendarWidget extends StatefulWidget {
+  final dateTime;
+
+  TableCalendarWidget({this.dateTime});
+
   @override
-  _TableCalendarWidgetState createState() => _TableCalendarWidgetState();
+  _TableCalendarWidgetState createState() =>
+      _TableCalendarWidgetState(dateTime: dateTime);
 }
 
 class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   CalendarController _calendarController;
+  static DateTime dateTime;
 
-  var dateTime = DateTime.now();
-
+  _TableCalendarWidgetState({dateTime});
 
   @override
   void initState() {
@@ -25,11 +30,11 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.dispose();
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal,
         title: Text('Flutter Calendar'),
       ),
       body: SingleChildScrollView(
@@ -40,7 +45,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               initialCalendarFormat: CalendarFormat.month,
               calendarStyle: CalendarStyle(
                   todayColor: Colors.orange,
-                  selectedColor:Colors.teal,
+                  selectedColor: Colors.teal,
                   //selectedColor: Theme.of(context).primaryColor,
                   todayStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -59,8 +64,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               onDaySelected: (date, events) {
                 setState(() {
                   dateTime = date;
+                  print("c" + dateTime.toIso8601String());
                 });
-                print(date.toIso8601String());
               },
               builders: CalendarBuilders(
                 selectedDayBuilder: (context, date, events) => Container(

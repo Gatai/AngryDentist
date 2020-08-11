@@ -7,17 +7,16 @@ import 'package:provider/provider.dart';
 
 class ButtonsWidget extends StatefulWidget {
   final bool isMorning;
-  final DateTime dateTime;
-
+  final dateTime;
 
   ButtonsWidget({this.isMorning, this.dateTime});
 
   @override
-  _ButtonsWidgetState createState() => _ButtonsWidgetState(isMorning: isMorning, dateTime: dateTime);
+  _ButtonsWidgetState createState() =>
+      _ButtonsWidgetState(isMorning: isMorning, dateTime: dateTime);
 }
 
 class _ButtonsWidgetState extends State<ButtonsWidget> {
-  
   _ButtonsWidgetState({this.isMorning, this.dateTime});
 
   var pressAttentionFluorine = false;
@@ -25,7 +24,7 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   var pressAttentionFloss = false;
   var isMorning = false;
   var hasFetched;
-  var dateTime = DateTime.now();
+  var dateTime;
 
   DateFormat dateFormat = DateFormat("yyyyMMdd");
   DateFormat dateYearMonth = DateFormat("yyyyMM");
@@ -39,10 +38,14 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   @override
   Widget build(BuildContext context) {
     var currentUser = Provider.of<Activity>(context);
-   
-    if(dateTime == null){
+
+    if (dateTime == null) {
       dateTime = DateTime.now();
+      print("Datum skrivs ut nedan");
+      print("n" + dateTime.toIso8601String());
     }
+
+    print("b" + dateTime.toIso8601String());
 
     initButtons(currentUser);
 
@@ -138,6 +141,9 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
     if (hasFetched != dateTime) {
       // Hämta aktivicy från DB
       //Fetch data from database
+      print("s" + dateTime.toIso8601String());
+
+
       Firestore.instance
           .collection("activities")
           .document(currentUser.userId)
