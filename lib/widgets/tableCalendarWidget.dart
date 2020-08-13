@@ -30,6 +30,10 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.dispose();
   }
 
+  var textStyle = new TextStyle(fontSize: 18.0);
+  var paddingAbove = EdgeInsets.all(5.0);
+  var paddingBelow = EdgeInsets.all(5.0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +43,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TableCalendar(
               initialCalendarFormat: CalendarFormat.month,
@@ -64,7 +70,6 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               onDaySelected: (date, events) {
                 setState(() {
                   dateTime = date;
-                  print("c" + dateTime.toIso8601String());
                 });
               },
               builders: CalendarBuilders(
@@ -92,8 +97,29 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               ),
               calendarController: _calendarController,
             ),
-            //EventWidget()
+            Padding(
+              padding: paddingAbove,
+            ),
+            Text(
+              "Morning",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+            ),
             ButtonsWidget(isMorning: true, dateTime: dateTime),
+            Text(
+              "Night",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+            ),
+            Padding(
+              padding: paddingBelow,
+            ),
             ButtonsWidget(isMorning: false, dateTime: dateTime),
           ],
         ),
