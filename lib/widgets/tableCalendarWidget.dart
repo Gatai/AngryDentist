@@ -94,6 +94,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
             ),
             //EventWidget()
             ButtonsWidget(isMorning: true, dateTime: dateTime),
+            ButtonsWidget(isMorning: false, dateTime: dateTime),
           ],
         ),
       ),

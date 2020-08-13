@@ -39,7 +39,6 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   Widget build(BuildContext context) {
     var currentUser = Provider.of<Activity>(context);
 
-    
     dateTime = widget.dateTime;
     if (dateTime == null) {
       dateTime = DateTime.now();
@@ -143,14 +142,12 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   }
 
   void initButtons(Activity currentUser) {
-
     var tempDate = dateFormat.format(dateTime);
 
     if (hasFetched != tempDate) {
       // Hämta aktivicy från DB
       //Fetch data from database
       print("s" + dateTime.toIso8601String());
-
 
       Firestore.instance
           .collection("activities")
