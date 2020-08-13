@@ -23,6 +23,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     //Om det finns en inloggad user kommer variabeln att få informationen
+
     currentUser = Provider.of<Activity>(context);
     // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
     final AuthService _auth = AuthService();
@@ -31,11 +32,9 @@ class _HomeState extends State<Home> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme:
-          ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.white),
-          // ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blueAccent),
+      theme: ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.white),
       home: Scaffold(
-      drawer: SideBarWidget(),
+        drawer: SideBarWidget(),
         appBar: AppBar(
           title: Text(
             title,

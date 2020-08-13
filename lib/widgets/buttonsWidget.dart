@@ -1,5 +1,7 @@
 import 'package:AngryDentist/models/activity.dart';
+import 'package:AngryDentist/screens/home/home.dart';
 import 'package:AngryDentist/utilities/activities.dart';
+import 'package:AngryDentist/widgets/tableCalendarWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -77,6 +79,23 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   pressAttentionFluorine,
                   pressAttentionFloss,
                   dateTime);
+
+/*
+Dessa har jag testat 
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Home()),
+              ).then((value) => setState(() {}));
+
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) => Home()));
+              Navigator.of(context)
+                  .push(new MaterialPageRoute<String>(
+                      builder: (BuildContext context) => Home()))
+                  .then((String value) {
+                print(value);
+              });
+*/
             },
           ),
           RaisedButton(

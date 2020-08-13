@@ -52,7 +52,6 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               calendarStyle: CalendarStyle(
                   todayColor: Colors.orange,
                   selectedColor: Colors.teal,
-                  //selectedColor: Theme.of(context).primaryColor,
                   todayStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
@@ -78,7 +77,6 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         color: Colors.teal,
-                        //color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(10.0)),
                     child: Text(
                       date.day.toString(),
@@ -108,6 +106,11 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                 fontSize: 20.0,
               ),
             ),
+             
+            Padding(
+              padding: paddingBelow,
+            ),
+
             ButtonsWidget(isMorning: true, dateTime: dateTime),
             Text(
               "Night",
