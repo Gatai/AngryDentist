@@ -8,7 +8,12 @@ class Activities {
   DateFormat dateYearMonth = DateFormat("yyyyMM");
 
   //metod för att spara en activity
-  saveActivity(String userId, bool morning, bool teethBrushed, bool fluorine, bool floss) {
+  saveActivity(String userId, bool morning, bool teethBrushed, bool fluorine, bool floss, DateTime dateTime) {
+
+    if(dateTime == null){
+      dateTime = DateTime.now();
+    } 
+
     var activity = Activity(
         created: DateTime.now(), // Lägger till tid och datum
         userId: userId,  //lägger in user ID
@@ -16,6 +21,7 @@ class Activities {
         teethBrushed: teethBrushed,
         fluorine: fluorine,
         floss: floss,
+        dateTime: dateTime,
         );
 
     Firestore.instance

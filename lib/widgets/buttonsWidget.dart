@@ -39,6 +39,8 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   Widget build(BuildContext context) {
     var currentUser = Provider.of<Activity>(context);
 
+    
+    dateTime = widget.dateTime;
     if (dateTime == null) {
       dateTime = DateTime.now();
       print("Datum skrivs ut nedan");
@@ -78,7 +80,8 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   isMorning,
                   pressAttentionTeethBrushed,
                   pressAttentionFluorine,
-                  pressAttentionFloss);
+                  pressAttentionFloss,
+                  dateTime);
             },
           ),
           RaisedButton(
@@ -103,7 +106,8 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   isMorning,
                   pressAttentionTeethBrushed,
                   pressAttentionFluorine,
-                  pressAttentionFloss);
+                  pressAttentionFloss,
+                  dateTime);
             },
           ),
           RaisedButton(
@@ -129,7 +133,8 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   isMorning,
                   pressAttentionTeethBrushed,
                   pressAttentionFluorine,
-                  pressAttentionFloss);
+                  pressAttentionFloss,
+                  dateTime);
             },
           ),
         ],
@@ -138,7 +143,10 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
   }
 
   void initButtons(Activity currentUser) {
-    if (hasFetched != dateTime) {
+
+    var tempDate = dateFormat.format(dateTime);
+
+    if (hasFetched != tempDate) {
       // Hämta aktivicy från DB
       //Fetch data from database
       print("s" + dateTime.toIso8601String());
@@ -162,7 +170,16 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
               pressAttentionFluorine = value.data["fluorine"];
               pressAttentionTeethBrushed = value.data["teethBrushed"];
               pressAttentionFloss = value.data["floss"];
-              hasFetched = dateTime;
+              hasFetched = tempDate;
+            });
+          }
+        } else {
+          if (this.mounted) {
+            setState(() {
+              pressAttentionFluorine = false;
+              pressAttentionTeethBrushed = false;
+              pressAttentionFloss = false;
+              hasFetched = tempDate;
             });
           }
         }

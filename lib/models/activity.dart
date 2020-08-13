@@ -6,7 +6,8 @@ class Activity {
   final String userId; //användarens Id
   final bool teethBrushed;
   final bool fluorine;
-  final bool floss;  
+  final bool floss;
+  DateTime dateTime;
 
   Activity({
     this.created,
@@ -15,6 +16,7 @@ class Activity {
     this.floss,
     this.fluorine,
     this.teethBrushed,
+    this.dateTime,
   });
 
   Activity.fromData(DataSnapshot snapshot)
@@ -23,7 +25,8 @@ class Activity {
         sortKey = snapshot.value['sortKey'],
         fluorine = snapshot.value['fluorine'],
         floss = snapshot.value['floss'],
-        teethBrushed = snapshot.value['teethBrushed'];
+        teethBrushed = snapshot.value['teethBrushed'],
+        dateTime = snapshot.value['dateTime'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -33,6 +36,7 @@ class Activity {
       'fluorine': fluorine,
       'teethBrushed': teethBrushed,
       'floss': floss,
+      'dateTime': dateTime,
     };
   }
 }
