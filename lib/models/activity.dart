@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Activity {
-  final String sortKey; // Sträng i stil med 202007101500 för att kunna sortera lättare
+  final String
+      sortKey; // Sträng i stil med 202007101500 för att kunna sortera lättare
   final DateTime created; // datum när dokumentet skapades
   final String userId; //användarens Id
   final bool teethBrushed;
@@ -19,8 +21,17 @@ class Activity {
     this.dateTime,
   });
 
+  Activity.fromDocument(DocumentSnapshot snapshot)
+      : created = snapshot.data['created'],
+        userId = snapshot.data['userId'],
+        sortKey = snapshot.data['sortKey'],
+        fluorine = snapshot.data['fluorine'],
+        floss = snapshot.data['floss'],
+        teethBrushed = snapshot.data['teethBrushed'],
+        dateTime = snapshot.data['dateTime'];
+
   Activity.fromData(DataSnapshot snapshot)
-        :created = snapshot.value['created'],
+      : created = snapshot.value['created'],
         userId = snapshot.value['userId'],
         sortKey = snapshot.value['sortKey'],
         fluorine = snapshot.value['fluorine'],
