@@ -37,8 +37,21 @@ class Activities {
             activity.sortKey) // <-- skapar ett dokument med Id som i sortKey
         .setData(activity.toJson());
 
-    //Ifall du ska spara i exempelvis Users/m4n1afnoP1hK2ST1d5KCfC6xAez2/Activities måste du ändra i collectionanropet till
-    //.collection('users').document(userId).collection("Activities") så att den hittar i strukturen
+    // Check if activity.teetBrushed==false && activity.floss==false && activity.flourine==false
+    // If all of that is true check if the document exists
+    //    If true delete document
+    // else (not all settings are false)
+    // save document
+
+    /*  //example of how to delete document
+      Firestore.instance
+        .collection('activities')
+        .document(userId)
+        .collection(dateYearMonth.format(dateTime))
+        .document(
+            activity.sortKey) // <-- skapar ett dokument med Id som i sortKey
+        .delete();
+  */
   }
 
   getActivity(String userId, DateTime dateTime) {}
