@@ -1,12 +1,16 @@
 import 'package:AngryDentist/screens/home/home.dart';
 import 'package:AngryDentist/widgets/buttonsWidget.dart';
+import 'package:AngryDentist/widgets/dateTimeWidget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TableCalendarWidget extends StatefulWidget {
   final dateTime;
+  final month;
 
-  TableCalendarWidget({this.dateTime});
+  TableCalendarWidget({this.dateTime, this.month});
 
   @override
   _TableCalendarWidgetState createState() =>
@@ -16,6 +20,14 @@ class TableCalendarWidget extends StatefulWidget {
 class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   CalendarController _calendarController;
   static DateTime dateTime;
+  Map<DateTime, List<dynamic>> _events;
+
+  var month;
+  var hasFetched;
+
+  var textStyle = new TextStyle(fontSize: 18.0);
+  var paddingAbove = EdgeInsets.all(5.0);
+  var paddingBelow = EdgeInsets.all(5.0);
 
   _TableCalendarWidgetState({dateTime});
 
@@ -23,6 +35,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   void initState() {
     super.initState();
     _calendarController = CalendarController();
+    _events = {};
   }
 
   @override
@@ -31,12 +44,19 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.dispose();
   }
 
-  var textStyle = new TextStyle(fontSize: 18.0);
-  var paddingAbove = EdgeInsets.all(5.0);
-  var paddingBelow = EdgeInsets.all(5.0);
+  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
+    Map<DateTime, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[DateTime.parse(key)] = map[key];
+    });
+    return newMap;
+  }
 
   @override
   Widget build(BuildContext context) {
+    
+    getDataMonth(dateTime);
+
     return new WillPopScope(
       onWillPop: () async {
         print("back button");
@@ -46,8 +66,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
           MaterialPageRoute(
             builder: (context) => Home(),
           ),
-
         );
+
         return false;
       },
       child: Scaffold(
@@ -62,10 +82,13 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               TableCalendar(
+                events: _events,
                 initialCalendarFormat: CalendarFormat.month,
                 calendarStyle: CalendarStyle(
+                    canEventMarkersOverflow: true,
                     todayColor: Colors.orange,
                     selectedColor: Colors.teal,
+                    markersColor: Colors.brown[700],
                     todayStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
@@ -87,6 +110,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                 },
                 builders: CalendarBuilders(
                   selectedDayBuilder: (context, date, events) => Container(
+                      //Hur stor marginal med cirken
                       margin: const EdgeInsets.all(4.0),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -141,5 +165,23 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
         ),
       ),
     );
+  }
+
+  void getDataMonth(DateTime month) {
+    DateFormat dateYearMonth = DateFormat("yyyyMM");
+    
+    var tempMonth = dateYearMonth.format(month);
+
+    if (hasFetched != tempMonth) {
+      // Hämta aktivicy från DB
+      //Fetch data from database
+
+      Firestore.instance
+          .collection("activities")
+          .document(currentUser.userId)
+          .collection(dateYearMonth.format(dateTime))
+          .getDocuments()
+          .then((value) {});
+    }
   }
 }

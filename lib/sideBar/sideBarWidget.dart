@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:AngryDentist/widgets/tableCalendarWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +31,7 @@ class SideBarWidget extends StatelessWidget {
               ),
             },
           ),
+          /*
           ListTile(
             leading: Icon(Icons.verified_user),
             title: Text('Profile'),
@@ -43,6 +42,7 @@ class SideBarWidget extends StatelessWidget {
             title: Text('Settings'),
             onTap: () => {Navigator.of(context).pop()},
           ),
+          */
         ],
       ),
     );
