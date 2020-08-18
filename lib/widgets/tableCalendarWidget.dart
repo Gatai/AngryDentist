@@ -1,6 +1,5 @@
 import 'package:AngryDentist/screens/home/home.dart';
 import 'package:AngryDentist/widgets/buttonsWidget.dart';
-import 'package:AngryDentist/widgets/dateTimeWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -20,7 +19,7 @@ class TableCalendarWidget extends StatefulWidget {
 class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   CalendarController _calendarController;
   static DateTime dateTime;
-  Map<DateTime, List<dynamic>> _events;
+  Map<DateTime, List> _events;
 
   var month;
   var hasFetched;
@@ -54,8 +53,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    
-    getDataMonth(dateTime);
+    getDataMonth(dateTime == null ? DateTime.now() : dateTime);
 
     return new WillPopScope(
       onWillPop: () async {
@@ -169,7 +167,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
 
   void getDataMonth(DateTime month) {
     DateFormat dateYearMonth = DateFormat("yyyyMM");
-    
+
     var tempMonth = dateYearMonth.format(month);
 
     if (hasFetched != tempMonth) {
@@ -179,9 +177,25 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       Firestore.instance
           .collection("activities")
           .document(currentUser.userId)
-          .collection(dateYearMonth.format(dateTime))
+          .collection(dateYearMonth.format(month))
           .getDocuments()
-          .then((value) {});
+          .then((value) {
+        print("Date print");
+        value.documents.forEach((n) {
+          //print(n.data["dateTime"].toDate());
+          if (n.data["dateTime"] != null) {
+/*
+            Försökte få fram alla prikar för aktiviteter, något gick fel
+            var list = _events.putIfAbsent(n.data["dateTime"].toDate(), () => ["Event"]);
+            if (list != null) {
+              list.add("Event2");
+              }     
+*/
+            _events.putIfAbsent(
+                n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
+          }
+        });
+      });
     }
   }
 }
