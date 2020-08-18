@@ -42,7 +42,8 @@ class Activities {
     //    If true delete document
     // else (not all settings are false)
     // save document
-
+    
+    // alternative, test 
     /*  //example of how to delete document
       Firestore.instance
         .collection('activities')
