@@ -165,10 +165,10 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     );
   }
 
-  void getDataMonth(DateTime month) {
+  void getDataMonth(DateTime date) {
     DateFormat dateYearMonth = DateFormat("yyyyMM");
 
-    var tempMonth = dateYearMonth.format(month);
+    var tempMonth = dateYearMonth.format(date);
 
     if (hasFetched != tempMonth) {
       // Hämta aktivicy från DB
@@ -177,13 +177,15 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       Firestore.instance
           .collection("activities")
           .document(currentUser.userId)
-          .collection(dateYearMonth.format(month))
+          .collection(dateYearMonth.format(date))
           .getDocuments()
           .then((value) {
         print("Date print");
         value.documents.forEach((n) {
           //print(n.data["dateTime"].toDate());
           if (n.data["dateTime"] != null) {
+          var prevMonth = new DateTime(date.year, date.month - 1);
+
 /*
             Försökte få fram alla prikar för aktiviteter, något gick fel
             var list = _events.putIfAbsent(n.data["dateTime"].toDate(), () => ["Event"]);
@@ -198,4 +200,6 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       });
     }
   }
+
+ 
 }

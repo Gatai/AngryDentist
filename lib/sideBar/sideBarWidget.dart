@@ -32,6 +32,7 @@ class SideBarWidget extends StatelessWidget {
             },
           ),
           /*
+          Till vidare utvecling
           ListTile(
             leading: Icon(Icons.verified_user),
             title: Text('Profile'),
