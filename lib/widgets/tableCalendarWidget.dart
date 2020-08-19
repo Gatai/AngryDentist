@@ -35,6 +35,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.initState();
     _calendarController = CalendarController();
     _events = {};
+    refreshMarker();
+    
   }
 
   @override
@@ -43,30 +45,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.dispose();
   }
 
-  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
-    Map<DateTime, dynamic> newMap = {};
-    map.forEach((key, value) {
-      newMap[DateTime.parse(key)] = map[key];
-    });
-    return newMap;
-  }
-
   @override
   Widget build(BuildContext context) {
-    DateFormat dateYearMonth = DateFormat("yyyyMM");
-
-    var tempMonth = dateYearMonth.format(dateTime);
-
-    if (hasFetched != tempMonth) {
-      getDataMonth(dateTime == null ? DateTime.now() : dateTime);
-      getDataMonth(dateTime == null
-          ? DateTime.now()
-          : DateTime(dateTime.year, dateTime.month - 1));
-      getDataMonth(dateTime == null
-          ? DateTime.now()
-          : DateTime(dateTime.year, dateTime.month + 1));
-    }
-
+   refreshMarker();
     return new WillPopScope(
       onWillPop: () async {
         print("back button");
@@ -190,12 +171,26 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
         .then((value) {
       value.documents.forEach((n) {
         if (n.data["dateTime"] != null) {
-
           _events.putIfAbsent(
               n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
-
         }
       });
     });
+  }
+
+  void refreshMarker() {
+    DateFormat dateYearMonth = DateFormat("yyyyMM");
+
+    var tempMonth = dateYearMonth.format(dateTime);
+
+    if (hasFetched != tempMonth) {
+      getDataMonth(dateTime == null ? DateTime.now() : dateTime);
+      getDataMonth(dateTime == null
+          ? DateTime.now()
+          : DateTime(dateTime.year, dateTime.month - 1));
+      getDataMonth(dateTime == null
+          ? DateTime.now()
+          : DateTime(dateTime.year, dateTime.month + 1));
+    }
   }
 }
