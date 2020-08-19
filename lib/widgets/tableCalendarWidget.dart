@@ -53,7 +53,19 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    getDataMonth(dateTime == null ? DateTime.now() : dateTime);
+    DateFormat dateYearMonth = DateFormat("yyyyMM");
+
+    var tempMonth = dateYearMonth.format(dateTime);
+
+    if (hasFetched != tempMonth) {
+      getDataMonth(dateTime == null ? DateTime.now() : dateTime);
+      getDataMonth(dateTime == null
+          ? DateTime.now()
+          : DateTime(dateTime.year, dateTime.month - 1));
+      getDataMonth(dateTime == null
+          ? DateTime.now()
+          : DateTime(dateTime.year, dateTime.month + 1));
+    }
 
     return new WillPopScope(
       onWillPop: () async {
@@ -86,7 +98,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                     canEventMarkersOverflow: true,
                     todayColor: Colors.orange,
                     selectedColor: Colors.teal,
-                    markersColor: Colors.brown[700],
+                    markersColor: Colors.greenAccent[700],
                     todayStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
@@ -165,41 +177,25 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     );
   }
 
-  void getDataMonth(DateTime date) {
+  void getDataMonth(DateTime dateTime) {
     DateFormat dateYearMonth = DateFormat("yyyyMM");
 
-    var tempMonth = dateYearMonth.format(date);
+    // Hämta aktivicy från DB
+    //Fetch data from database
+    Firestore.instance
+        .collection("activities")
+        .document(currentUser.userId)
+        .collection(dateYearMonth.format(dateTime))
+        .getDocuments()
+        .then((value) {
+      value.documents.forEach((n) {
+        if (n.data["dateTime"] != null) {
 
-    if (hasFetched != tempMonth) {
-      // Hämta aktivicy från DB
-      //Fetch data from database
+          _events.putIfAbsent(
+              n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
 
-      Firestore.instance
-          .collection("activities")
-          .document(currentUser.userId)
-          .collection(dateYearMonth.format(date))
-          .getDocuments()
-          .then((value) {
-        print("Date print");
-        value.documents.forEach((n) {
-          //print(n.data["dateTime"].toDate());
-          if (n.data["dateTime"] != null) {
-          var prevMonth = new DateTime(date.year, date.month - 1);
-
-/*
-            Försökte få fram alla prikar för aktiviteter, något gick fel
-            var list = _events.putIfAbsent(n.data["dateTime"].toDate(), () => ["Event"]);
-            if (list != null) {
-              list.add("Event2");
-              }     
-*/
-            _events.putIfAbsent(
-                n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
-          }
-        });
+        }
       });
-    }
+    });
   }
-
- 
 }
