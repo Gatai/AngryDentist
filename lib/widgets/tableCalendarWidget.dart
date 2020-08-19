@@ -35,6 +35,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.initState();
     _calendarController = CalendarController();
     _events = {};
+    refreshMarker();
+    
   }
 
   @override
@@ -43,18 +45,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.dispose();
   }
 
-  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
-    Map<DateTime, dynamic> newMap = {};
-    map.forEach((key, value) {
-      newMap[DateTime.parse(key)] = map[key];
-    });
-    return newMap;
-  }
-
   @override
   Widget build(BuildContext context) {
-    getDataMonth(dateTime == null ? DateTime.now() : dateTime);
-
+   refreshMarker();
     return new WillPopScope(
       onWillPop: () async {
         print("back button");
@@ -86,7 +79,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                     canEventMarkersOverflow: true,
                     todayColor: Colors.orange,
                     selectedColor: Colors.teal,
-                    markersColor: Colors.brown[700],
+                    markersColor: Colors.greenAccent[700],
                     todayStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
@@ -165,37 +158,39 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     );
   }
 
-  void getDataMonth(DateTime month) {
+  void getDataMonth(DateTime dateTime) {
     DateFormat dateYearMonth = DateFormat("yyyyMM");
 
-    var tempMonth = dateYearMonth.format(month);
+    // Hämta aktivicy från DB
+    //Fetch data from database
+    Firestore.instance
+        .collection("activities")
+        .document(currentUser.userId)
+        .collection(dateYearMonth.format(dateTime))
+        .getDocuments()
+        .then((value) {
+      value.documents.forEach((n) {
+        if (n.data["dateTime"] != null) {
+          _events.putIfAbsent(
+              n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
+        }
+      });
+    });
+  }
+
+  void refreshMarker() {
+    DateFormat dateYearMonth = DateFormat("yyyyMM");
+
+    var tempMonth = dateYearMonth.format(dateTime);
 
     if (hasFetched != tempMonth) {
-      // Hämta aktivicy från DB
-      //Fetch data from database
-
-      Firestore.instance
-          .collection("activities")
-          .document(currentUser.userId)
-          .collection(dateYearMonth.format(month))
-          .getDocuments()
-          .then((value) {
-        print("Date print");
-        value.documents.forEach((n) {
-          //print(n.data["dateTime"].toDate());
-          if (n.data["dateTime"] != null) {
-/*
-            Försökte få fram alla prikar för aktiviteter, något gick fel
-            var list = _events.putIfAbsent(n.data["dateTime"].toDate(), () => ["Event"]);
-            if (list != null) {
-              list.add("Event2");
-              }     
-*/
-            _events.putIfAbsent(
-                n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
-          }
-        });
-      });
+      getDataMonth(dateTime == null ? DateTime.now() : dateTime);
+      getDataMonth(dateTime == null
+          ? DateTime.now()
+          : DateTime(dateTime.year, dateTime.month - 1));
+      getDataMonth(dateTime == null
+          ? DateTime.now()
+          : DateTime(dateTime.year, dateTime.month + 1));
     }
   }
 }
