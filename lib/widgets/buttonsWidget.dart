@@ -9,7 +9,9 @@ class ButtonsWidget extends StatefulWidget {
   final bool isMorning;
   final dateTime;
 
-  ButtonsWidget({this.isMorning, this.dateTime});
+  final Function() notifyParent;
+
+  ButtonsWidget({this.isMorning, this.dateTime, this.notifyParent});
 
   @override
   _ButtonsWidgetState createState() =>
@@ -78,6 +80,10 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   pressAttentionFloss,
                   dateTime);
 
+                    if(widget.notifyParent != null){
+                    widget.notifyParent();
+                  }
+
             },
           ),
           RaisedButton(
@@ -104,6 +110,10 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   pressAttentionFluorine,
                   pressAttentionFloss,
                   dateTime);
+
+                  if(widget.notifyParent != null){
+                    widget.notifyParent();
+                  }
             },
           ),
           RaisedButton(
@@ -131,6 +141,10 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   pressAttentionFluorine,
                   pressAttentionFloss,
                   dateTime);
+
+                    if(widget.notifyParent != null){
+                    widget.notifyParent();
+                  }
             },
           ),
         ],

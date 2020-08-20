@@ -46,10 +46,13 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.dispose();
   }
 
+  refresh() {
+  setState(() {hasFetched = null; refreshMarker();});
+}
+
   @override
   Widget build(BuildContext context) {
-    //   refreshMarker();
-    print("bild");
+    refreshMarker();
     return new WillPopScope(
       onWillPop: () async {
         print("back button");
@@ -88,7 +91,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               Padding(
                 padding: paddingBelow,
               ),
-              ButtonsWidget(isMorning: true, dateTime: dateTime),
+              ButtonsWidget(isMorning: true, dateTime: dateTime, notifyParent: refresh),
               Text(
                 "Night",
                 textAlign: TextAlign.center,
@@ -100,7 +103,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               Padding(
                 padding: paddingBelow,
               ),
-              ButtonsWidget(isMorning: false, dateTime: dateTime),
+              ButtonsWidget(isMorning: false, dateTime: dateTime, notifyParent: refresh),
             ],
           ),
         ),
@@ -173,30 +176,37 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
         .collection(dateYearMonth.format(dateTime))
         .getDocuments()
         .then((value) {
-      setState(() {
-        value.documents.forEach((n) {
-          if (n.data["dateTime"] != null) {
-            _events.putIfAbsent(
-                n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
-          }
-        });
+      var amountOfEvents = _events.length;
+      //Keep track of month fetched to avoid multiple reads of same month
+      hasFetched = dateYearMonth.format(dateTime);
+      value.documents.forEach((n) {
+        if (n.data["dateTime"] != null) {
+          _events.putIfAbsent(
+              n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
+        }
+
+        //check if amount of events has changed, 
+        // in that case set the State to refresh the calendar
+        if (amountOfEvents != _events.length) {
+          setState(() {
+            print("Got events");
+          });
+        }
       });
     });
   }
 
   void refreshMarker() {
     DateFormat dateYearMonth = DateFormat("yyyyMM");
-
+    //Make sure dateTime is never null
+    dateTime = dateTime == null ? DateTime.now() : dateTime;
     var tempMonth = dateYearMonth.format(dateTime);
 
     if (hasFetched != tempMonth) {
-      getDataMonth(dateTime == null ? DateTime.now() : dateTime);
-      getDataMonth(dateTime == null
-          ? DateTime.now()
-          : DateTime(dateTime.year, dateTime.month - 1));
-      getDataMonth(dateTime == null
-          ? DateTime.now()
-          : DateTime(dateTime.year, dateTime.month + 1));
+      getDataMonth(DateTime(dateTime.year, dateTime.month - 1));
+      getDataMonth(DateTime(dateTime.year, dateTime.month + 1));
+      // Get current month last because that's the one that will be stored in hasFetched
+      getDataMonth(dateTime);
     }
   }
 }
