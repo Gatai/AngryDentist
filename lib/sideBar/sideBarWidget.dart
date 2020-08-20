@@ -15,9 +15,10 @@ class SideBarWidget extends StatelessWidget {
             ),
             decoration: BoxDecoration(
                 color: Colors.teal,
-                image: DecorationImage(
+                /*image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage('lib/images/website.jpg'))),
+                    image: AssetImage('lib/images/website.jpg'))*/
+                    ),
           ),
           ListTile(
             leading: Icon(Icons.calendar_today),

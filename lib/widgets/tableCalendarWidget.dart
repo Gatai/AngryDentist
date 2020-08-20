@@ -34,9 +34,10 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   void initState() {
     super.initState();
     _calendarController = CalendarController();
-    _events = {};
+    _events = {
+      // DateTime.now(): ['test', 'test2']
+    };
     refreshMarker();
-    
   }
 
   @override
@@ -47,18 +48,17 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
-   refreshMarker();
+    //   refreshMarker();
+    print("bild");
     return new WillPopScope(
       onWillPop: () async {
         print("back button");
-
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => Home(),
           ),
         );
-
         return false;
       },
       child: Scaffold(
@@ -72,58 +72,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              TableCalendar(
-                events: _events,
-                initialCalendarFormat: CalendarFormat.month,
-                calendarStyle: CalendarStyle(
-                    canEventMarkersOverflow: true,
-                    todayColor: Colors.orange,
-                    selectedColor: Colors.teal,
-                    markersColor: Colors.greenAccent[700],
-                    todayStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                        color: Colors.white)),
-                headerStyle: HeaderStyle(
-                  centerHeaderTitle: true,
-                  formatButtonDecoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  formatButtonTextStyle: TextStyle(color: Colors.white),
-                  formatButtonShowsNext: false,
-                ),
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                onDaySelected: (date, events) {
-                  setState(() {
-                    dateTime = date;
-                  });
-                },
-                builders: CalendarBuilders(
-                  selectedDayBuilder: (context, date, events) => Container(
-                      //Hur stor marginal med cirken
-                      margin: const EdgeInsets.all(4.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Colors.teal,
-                          borderRadius: BorderRadius.circular(10.0)),
-                      child: Text(
-                        date.day.toString(),
-                        style: TextStyle(color: Colors.white),
-                      )),
-                  todayDayBuilder: (context, date, events) => Container(
-                      margin: const EdgeInsets.all(4.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Colors.orange,
-                          borderRadius: BorderRadius.circular(10.0)),
-                      child: Text(
-                        date.day.toString(),
-                        style: TextStyle(color: Colors.white),
-                      )),
-                ),
-                calendarController: _calendarController,
-              ),
+              //Bygger kalendern
+              _buildTableCalendar(),
               Padding(
                 padding: paddingAbove,
               ),
@@ -158,6 +108,60 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     );
   }
 
+  Widget _buildTableCalendar() {
+    return TableCalendar(
+      events: _events,
+      initialCalendarFormat: CalendarFormat.month,
+      calendarStyle: CalendarStyle(
+          canEventMarkersOverflow: true,
+          todayColor: Colors.orange,
+          selectedColor: Colors.teal,
+          markersColor: Colors.greenAccent[700],
+          todayStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+              color: Colors.white)),
+      headerStyle: HeaderStyle(
+        centerHeaderTitle: true,
+        formatButtonDecoration: BoxDecoration(
+          color: Colors.orange,
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        formatButtonTextStyle: TextStyle(color: Colors.white),
+        formatButtonShowsNext: false,
+      ),
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      onDaySelected: (date, events) {
+        setState(() {
+          dateTime = date;
+        });
+      },
+      builders: CalendarBuilders(
+        selectedDayBuilder: (context, date, events) => Container(
+            //Hur stor marginal med cirken
+            margin: const EdgeInsets.all(4.0),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: Colors.teal, borderRadius: BorderRadius.circular(10.0)),
+            child: Text(
+              date.day.toString(),
+              style: TextStyle(color: Colors.white),
+            )),
+        todayDayBuilder: (context, date, events) => Container(
+            margin: const EdgeInsets.all(4.0),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: Colors.orange,
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Text(
+              date.day.toString(),
+              style: TextStyle(color: Colors.white),
+            )),
+      ),
+      calendarController: _calendarController,
+    );
+  }
+
   void getDataMonth(DateTime dateTime) {
     DateFormat dateYearMonth = DateFormat("yyyyMM");
 
@@ -169,11 +173,13 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
         .collection(dateYearMonth.format(dateTime))
         .getDocuments()
         .then((value) {
-      value.documents.forEach((n) {
-        if (n.data["dateTime"] != null) {
-          _events.putIfAbsent(
-              n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
-        }
+      setState(() {
+        value.documents.forEach((n) {
+          if (n.data["dateTime"] != null) {
+            _events.putIfAbsent(
+                n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
+          }
+        });
       });
     });
   }
