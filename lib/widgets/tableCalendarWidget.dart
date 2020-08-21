@@ -47,8 +47,13 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   }
 
   refresh() {
-  setState(() {hasFetched = null; refreshMarker();});
-}
+    setState(() {
+      //hasFetched = null;
+      //refreshMarker();
+      // fetch current month without fetching previous and next month
+      getDataMonth(dateTime);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +96,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               Padding(
                 padding: paddingBelow,
               ),
-              ButtonsWidget(isMorning: true, dateTime: dateTime, notifyParent: refresh),
+              ButtonsWidget(
+                  isMorning: true, dateTime: dateTime, notifyParent: refresh),
               Text(
                 "Night",
                 textAlign: TextAlign.center,
@@ -103,7 +109,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               Padding(
                 padding: paddingBelow,
               ),
-              ButtonsWidget(isMorning: false, dateTime: dateTime, notifyParent: refresh),
+              ButtonsWidget(
+                  isMorning: false, dateTime: dateTime, notifyParent: refresh),
             ],
           ),
         ),
@@ -185,7 +192,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
         }
 
-        //check if amount of events has changed, 
+        //check if amount of events has changed,
         // in that case set the State to refresh the calendar
         if (amountOfEvents != _events.length) {
           setState(() {
