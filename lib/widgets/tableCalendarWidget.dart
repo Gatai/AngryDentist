@@ -50,8 +50,10 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
 
   refresh() {
     setState(() {
-      hasFetched = null;
-      refreshMarker();
+      //hasFetched = null;
+      //refreshMarker();
+      // fetch current month without fetching previous and next month
+      getDataMonth(dateTime);
     });
   }
 
