@@ -21,6 +21,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   static DateTime dateTime;
   Map<DateTime, List> _events;
 
+  DateFormat dateYearMonth = DateFormat("yyyyMM");
+
   var month;
   var hasFetched;
 
@@ -47,8 +49,11 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   }
 
   refresh() {
-  setState(() {hasFetched = null; refreshMarker();});
-}
+    setState(() {
+      hasFetched = null;
+      refreshMarker();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +96,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               Padding(
                 padding: paddingBelow,
               ),
-              ButtonsWidget(isMorning: true, dateTime: dateTime, notifyParent: refresh),
+              ButtonsWidget(
+                  isMorning: true, dateTime: dateTime, notifyParent: refresh),
               Text(
                 "Night",
                 textAlign: TextAlign.center,
@@ -103,7 +109,8 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               Padding(
                 padding: paddingBelow,
               ),
-              ButtonsWidget(isMorning: false, dateTime: dateTime, notifyParent: refresh),
+              ButtonsWidget(
+                  isMorning: false, dateTime: dateTime, notifyParent: refresh),
             ],
           ),
         ),
@@ -166,7 +173,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   }
 
   void getDataMonth(DateTime dateTime) {
-    DateFormat dateYearMonth = DateFormat("yyyyMM");
+  //  DateFormat dateYearMonth = DateFormat("yyyyMM");
+
+        deleteData();
 
     // Hämta aktivicy från DB
     //Fetch data from database
@@ -185,7 +194,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
               n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
         }
 
-        //check if amount of events has changed, 
+        //check if amount of events has changed,
         // in that case set the State to refresh the calendar
         if (amountOfEvents != _events.length) {
           setState(() {
@@ -197,7 +206,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   }
 
   void refreshMarker() {
-    DateFormat dateYearMonth = DateFormat("yyyyMM");
+   // DateFormat dateYearMonth = DateFormat("yyyyMM");
     //Make sure dateTime is never null
     dateTime = dateTime == null ? DateTime.now() : dateTime;
     var tempMonth = dateYearMonth.format(dateTime);
@@ -208,5 +217,14 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       // Get current month last because that's the one that will be stored in hasFetched
       getDataMonth(dateTime);
     }
+  }
+
+  void deleteData() {
+    Firestore.instance
+        .collection("activities")
+        .document(currentUser.userId)
+        .collection(dateYearMonth.format(dateTime))
+        .document('20200819N')
+        .delete();
   }
 }

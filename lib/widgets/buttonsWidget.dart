@@ -80,10 +80,9 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   pressAttentionFloss,
                   dateTime);
 
-                    if(widget.notifyParent != null){
-                    widget.notifyParent();
-                  }
-
+              if (widget.notifyParent != null) {
+                widget.notifyParent();
+              }
             },
           ),
           RaisedButton(
@@ -111,9 +110,9 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   pressAttentionFloss,
                   dateTime);
 
-                  if(widget.notifyParent != null){
-                    widget.notifyParent();
-                  }
+              if (widget.notifyParent != null) {
+                widget.notifyParent();
+              }
             },
           ),
           RaisedButton(
@@ -142,9 +141,9 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   pressAttentionFloss,
                   dateTime);
 
-                    if(widget.notifyParent != null){
-                    widget.notifyParent();
-                  }
+              if (widget.notifyParent != null) {
+                widget.notifyParent();
+              }
             },
           ),
         ],
@@ -158,7 +157,6 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
     if (hasFetched != tempDate) {
       // Hämta aktivicy från DB
       //Fetch data from database
-
       Firestore.instance
           .collection("activities")
           .document(currentUser.userId)
@@ -193,4 +191,6 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
       });
     }
   }
+
+  
 }
