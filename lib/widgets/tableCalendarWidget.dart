@@ -48,11 +48,16 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.dispose();
   }
 
-  refresh() {
+  refresh(DateTime dateTime) {
     setState(() {
       //hasFetched = null;
       //refreshMarker();
       // fetch current month without fetching previous and next month
+
+       //converting dateTime to only date
+        var date = DateTime.parse(new DateFormat("yyyy-MM-dd").format(dateTime));
+       _events.remove(date);
+
       getDataMonth(dateTime);
     });
   }
@@ -99,7 +104,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                 padding: paddingBelow,
               ),
               ButtonsWidget(
-                  isMorning: true, dateTime: dateTime, notifyParent: refresh),
+                  isMorning: true, dateTime: dateTime, notifyParent: refresh(dateTime)),
               Text(
                 "Night",
                 textAlign: TextAlign.center,
@@ -112,7 +117,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                 padding: paddingBelow,
               ),
               ButtonsWidget(
-                  isMorning: false, dateTime: dateTime, notifyParent: refresh),
+                  isMorning: false, dateTime: dateTime, notifyParent: refresh(dateTime)),
             ],
           ),
         ),
@@ -177,8 +182,6 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   void getDataMonth(DateTime dateTime) {
   //  DateFormat dateYearMonth = DateFormat("yyyyMM");
 
-        deleteData();
-
     // Hämta aktivicy från DB
     //Fetch data from database
     Firestore.instance
@@ -192,8 +195,11 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       hasFetched = dateYearMonth.format(dateTime);
       value.documents.forEach((n) {
         if (n.data["dateTime"] != null) {
+          //converting timestamp to date
+          dateTime = n.data["dateTime"].toDate();
           _events.putIfAbsent(
-              n.data["dateTime"].toDate(), () => ["Lägg till fler händelse"]);
+            //save whithout time
+          DateTime.parse(new DateFormat("yyyy-MM-dd").format(dateTime)), () => ["Lägg till fler händelse"]);
         }
 
         //check if amount of events has changed,
@@ -221,12 +227,4 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     }
   }
 
-  void deleteData() {
-    Firestore.instance
-        .collection("activities")
-        .document(currentUser.userId)
-        .collection(dateYearMonth.format(dateTime))
-        .document('20200819N')
-        .delete();
-  }
 }

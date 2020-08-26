@@ -1,4 +1,5 @@
 import 'package:AngryDentist/models/activity.dart';
+import 'package:AngryDentist/screens/home/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
@@ -29,21 +30,32 @@ class Activities {
       dateTime: dateTime,
     );
 
-    Firestore.instance
-        .collection('activities')
-        .document(userId)
-        .collection(dateYearMonth.format(dateTime))
-        .document(
-            activity.sortKey) // <-- skapar ett dokument med Id som i sortKey
-        .setData(activity.toJson());
+    if (activity.fluorine == false &&
+        activity.floss == false &&
+        activity.teethBrushed == false) {
+      Firestore.instance
+          .collection("activities")
+          .document(currentUser.userId)
+          .collection(dateYearMonth.format(dateTime))
+          .document(activity.sortKey)
+          .delete();
+    } else {
+      Firestore.instance
+          .collection('activities')
+          .document(userId)
+          .collection(dateYearMonth.format(dateTime))
+          .document(
+              activity.sortKey) // <-- skapar ett dokument med Id som i sortKey
+          .setData(activity.toJson());
+    }
 
     // Check if activity.teetBrushed==false && activity.floss==false && activity.flourine==false
     // If all of that is true check if the document exists
     //    If true delete document
     // else (not all settings are false)
     // save document
-    
-    // alternative, test 
+
+    // alternative, test
     /*  //example of how to delete document
       Firestore.instance
         .collection('activities')
