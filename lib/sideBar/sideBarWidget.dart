@@ -1,3 +1,4 @@
+import 'package:AngryDentist/widgets/chartsWidget.dart';
 import 'package:AngryDentist/widgets/tableCalendarWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -14,11 +15,11 @@ class SideBarWidget extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),
             decoration: BoxDecoration(
-                color: Colors.teal,
-                /*image: DecorationImage(
+              color: Colors.teal,
+              /*image: DecorationImage(
                     fit: BoxFit.fill,
                     image: AssetImage('lib/images/website.jpg'))*/
-                    ),
+            ),
           ),
           ListTile(
             leading: Icon(Icons.calendar_today),
@@ -32,13 +33,20 @@ class SideBarWidget extends StatelessWidget {
               ),
             },
           ),
+          ListTile(
+            leading: Icon(Icons.pie_chart),
+            title: Text('Statistik'),
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GroupedBarChart.withSampleData(),
+                ),
+              ),
+            },
+          ),
           /*
           Till vidare utvecling
-          ListTile(
-            leading: Icon(Icons.verified_user),
-            title: Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
