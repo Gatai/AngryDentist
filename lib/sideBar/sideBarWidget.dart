@@ -40,7 +40,7 @@ class SideBarWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => GroupedBarChart.getData(DateTime.now()),
+                  builder: (context) => ChartsWidget(),
                 ),
               ),
             },
