@@ -14,7 +14,7 @@ class ChartsWidget extends StatefulWidget {
   final List<charts.Series> seriesList;
   final dateTime;
   ChartsWidget({this.dateTime, this.seriesList});
- 
+
   @override
   _ChartsWidgetState createState() =>
       _ChartsWidgetState(seriesList: _createEmptyData());
@@ -41,7 +41,6 @@ class ChartsWidget extends StatefulWidget {
 
 class _ChartsWidgetState extends State<ChartsWidget> {
   List<charts.Series<ActivityData, String>> seriesList;
- 
 
   var month = Jiffy().MMMM;
 
@@ -65,18 +64,18 @@ class _ChartsWidgetState extends State<ChartsWidget> {
           new charts.ChartTitle('',
               //subTitle: 'Top sub-title text',
               behaviorPosition: charts.BehaviorPosition.top,
-              titleStyleSpec: charts.TextStyleSpec(fontSize: 50),
+              titleStyleSpec: charts.TextStyleSpec(fontSize: 00),
               titleOutsideJustification:
                   charts.OutsideJustification.middleDrawArea,
               // Set a larger inner padding than the default (10) to avoid
               // rendering the text too close to the top measure axis tick label.
               // The top tick label may extend upwards into the top margin region
               // if it is located at the top of the draw area.
-              innerPadding: 140),
-        // new charts.PercentInjector(
-          //    totalType: charts.PercentInjectorTotalType.series),
+              innerPadding: 120),
+           new charts.PercentInjector(
+             totalType: charts.PercentInjectorTotalType.domain),
         ],
-       // primaryMeasureAxis: new charts.PercentAxisSpec(),
+       primaryMeasureAxis: new charts.PercentAxisSpec(),
       ),
     ]);
     // used to display precient in y-axis
@@ -92,14 +91,16 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   Widget _buildText() {
     return Container(
-      padding: EdgeInsets.all(60.0),
+      color: Colors.redAccent,
+      padding: EdgeInsets.all(30.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
             month,
             style: new TextStyle(
-                fontSize: 40.0,
+                decoration: TextDecoration.none,
+                fontSize: 50.0,
                 color: Colors.white,
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
