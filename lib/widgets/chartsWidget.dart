@@ -1,5 +1,6 @@
 import 'package:AngryDentist/models/activityData.dart';
 import 'package:AngryDentist/screens/home/home.dart';
+import 'package:AngryDentist/widgets/dateTimeWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_utils/date_utils.dart';
 
@@ -7,12 +8,13 @@ import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 
 class ChartsWidget extends StatefulWidget {
   final List<charts.Series> seriesList;
   final dateTime;
   ChartsWidget({this.dateTime, this.seriesList});
-
+ 
   @override
   _ChartsWidgetState createState() =>
       _ChartsWidgetState(seriesList: _createEmptyData());
@@ -39,6 +41,9 @@ class ChartsWidget extends StatefulWidget {
 
 class _ChartsWidgetState extends State<ChartsWidget> {
   List<charts.Series<ActivityData, String>> seriesList;
+ 
+
+  var month = Jiffy().MMMM;
 
   _ChartsWidgetState({this.seriesList});
 
@@ -51,30 +56,57 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return new charts.BarChart(seriesList,
+    return Stack(children: <Widget>[
+      _buildText(),
+      charts.BarChart(
+        seriesList,
         barGroupingType: charts.BarGroupingType.grouped,
         behaviors: [
-          new charts.ChartTitle('Top title text',
+          new charts.ChartTitle('',
               //subTitle: 'Top sub-title text',
               behaviorPosition: charts.BehaviorPosition.top,
-              titleOutsideJustification: charts.OutsideJustification.middleDrawArea,
-              
+              titleStyleSpec: charts.TextStyleSpec(fontSize: 50),
+              titleOutsideJustification:
+                  charts.OutsideJustification.middleDrawArea,
               // Set a larger inner padding than the default (10) to avoid
               // rendering the text too close to the top measure axis tick label.
               // The top tick label may extend upwards into the top margin region
               // if it is located at the top of the draw area.
-              innerPadding: 100),
-        ]
-        // used to display precient in y-axis
-        // Configures a [PercentInjector] behavior that will calculate measure
-        // values as the percentage of the total of all data in its series.
-        // behaviors: [
-        //   new charts.PercentInjector(
-        //       totalType: charts.PercentInjectorTotalType.series)
-        // ],
-        // // Configure the axis spec to show percentage values.
-        // primaryMeasureAxis: new charts.PercentAxisSpec(),
-        );
+              innerPadding: 140),
+        // new charts.PercentInjector(
+          //    totalType: charts.PercentInjectorTotalType.series),
+        ],
+       // primaryMeasureAxis: new charts.PercentAxisSpec(),
+      ),
+    ]);
+    // used to display precient in y-axis
+    // Configures a [PercentInjector] behavior that will calculate measure
+    // values as the percentage of the total of all data in its series.
+    // behaviors: [
+    //   new charts.PercentInjector(
+    //       totalType: charts.PercentInjectorTotalType.series)
+    // ],
+    // // Configure the axis spec to show percentage values.
+    // primaryMeasureAxis: new charts.PercentAxisSpec(),
+  }
+
+  Widget _buildText() {
+    return Container(
+      padding: EdgeInsets.all(60.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            month,
+            style: new TextStyle(
+                fontSize: 40.0,
+                color: Colors.white,
+                fontWeight: FontWeight.w200,
+                fontFamily: "Roboto"),
+          ),
+        ],
+      ),
+    );
   }
 
   void _getDataFromDb(DateTime dateTime) {
@@ -104,17 +136,21 @@ class _ChartsWidgetState extends State<ChartsWidget> {
           if (n.documentID.endsWith("M")) {
             if (n.data["teethBrushed"] == true) {
               teethBrushedMorning++;
-            } else if (n.data["floss"] == true) {
+            }
+            if (n.data["floss"] == true) {
               flossMorning++;
-            } else if (n.data["fluorine"] == true) {
+            }
+            if (n.data["fluorine"] == true) {
               fluorineMorning++;
             }
           } else if (n.documentID.endsWith("N")) {
             if (n.data["teethBrushed"] == true) {
               teethBrushedNight++;
-            } else if (n.data["floss"] == true) {
+            }
+            if (n.data["floss"] == true) {
               flossNight++;
-            } else if (n.data["fluorine"] == true) {
+            }
+            if (n.data["fluorine"] == true) {
               fluorineNight++;
             }
           }

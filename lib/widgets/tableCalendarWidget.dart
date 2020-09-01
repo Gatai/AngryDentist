@@ -124,7 +124,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       ),
     );
   }
-
+//Build the tabel layout
   Widget _buildTableCalendar() {
     return TableCalendar(
       events: _events,
