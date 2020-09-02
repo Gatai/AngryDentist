@@ -1,8 +1,6 @@
 import 'package:AngryDentist/models/activityData.dart';
 import 'package:AngryDentist/screens/home/home.dart';
-import 'package:AngryDentist/widgets/dateTimeWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_utils/date_utils.dart';
 
 /// Bar chart example
 import 'package:flutter/material.dart';
@@ -42,6 +40,7 @@ class ChartsWidget extends StatefulWidget {
 class _ChartsWidgetState extends State<ChartsWidget> {
   List<charts.Series<ActivityData, String>> seriesList;
 
+  //To show month
   var month = Jiffy().MMMM;
 
   _ChartsWidgetState({this.seriesList});
@@ -62,37 +61,29 @@ class _ChartsWidgetState extends State<ChartsWidget> {
         barGroupingType: charts.BarGroupingType.grouped,
         behaviors: [
           new charts.ChartTitle('',
-              //subTitle: 'Top sub-title text',
               behaviorPosition: charts.BehaviorPosition.top,
               titleStyleSpec: charts.TextStyleSpec(fontSize: 00),
               titleOutsideJustification:
                   charts.OutsideJustification.middleDrawArea,
-              // Set a larger inner padding than the default (10) to avoid
-              // rendering the text too close to the top measure axis tick label.
-              // The top tick label may extend upwards into the top margin region
-              // if it is located at the top of the draw area.
               innerPadding: 120),
-           new charts.PercentInjector(
-             totalType: charts.PercentInjectorTotalType.domain),
+          // Configures a [PercentInjector] behavior that will calculate measure
+          // values as the percentage of the total of all data that shares a
+          // domain value.
+          new charts.PercentInjector(
+              totalType: charts.PercentInjectorTotalType.domain),
         ],
-       primaryMeasureAxis: new charts.PercentAxisSpec(),
+        barRendererDecorator: new charts.BarLabelDecorator<String>(),
+        domainAxis: new charts.OrdinalAxisSpec(),
+        // Configure the axis spec to show percentage values.
+        primaryMeasureAxis: new charts.PercentAxisSpec(),
       ),
     ]);
-    // used to display precient in y-axis
-    // Configures a [PercentInjector] behavior that will calculate measure
-    // values as the percentage of the total of all data in its series.
-    // behaviors: [
-    //   new charts.PercentInjector(
-    //       totalType: charts.PercentInjectorTotalType.series)
-    // ],
-    // // Configure the axis spec to show percentage values.
-    // primaryMeasureAxis: new charts.PercentAxisSpec(),
   }
 
   Widget _buildText() {
     return Container(
-      color: Colors.redAccent,
-      padding: EdgeInsets.all(30.0),
+      color: Colors.black,
+      padding: EdgeInsets.all(50.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -108,6 +99,13 @@ class _ChartsWidgetState extends State<ChartsWidget> {
         ],
       ),
     );
+  }
+
+  int daysInMonth(DateTime date) {
+    var firstDayThisMonth = new DateTime(date.year, date.month, date.day);
+    var firstDayNextMonth = new DateTime(firstDayThisMonth.year,
+        firstDayThisMonth.month + 1, firstDayThisMonth.day);
+    return firstDayNextMonth.difference(firstDayThisMonth).inDays;
   }
 
   void _getDataFromDb(DateTime dateTime) {
@@ -156,8 +154,9 @@ class _ChartsWidgetState extends State<ChartsWidget> {
             }
           }
         }
-
-        var days = Utils.daysInMonth(dateTime).length;
+        //Get the days in dateTime
+        var days = daysInMonth(dateTime);
+        //var days = Utils.daysInMonth(dateTime).length;
 
         //test for print the data out
         print("--------------------------");
@@ -195,13 +194,15 @@ class _ChartsWidgetState extends State<ChartsWidget> {
         setState(() {
           this.seriesList = [
             new charts.Series<ActivityData, String>(
-              id: 'teethBrushed',
-              domainFn: (ActivityData activity, _) => activity.yearMonth,
-              measureFn: (ActivityData activity, _) => activity.amount,
-              data: teethBrushedData,
-              colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-              fillColorFn: (_, __) =>
-                  charts.MaterialPalette.blue.shadeDefault.lighter,
+                id: 'teethBrushed',
+                domainFn: (ActivityData activity, _) => activity.yearMonth,
+                measureFn: (ActivityData activity, _) => activity.amount,
+                data: teethBrushedData,
+                colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+                fillColorFn: (_, __) =>
+                    charts.MaterialPalette.blue.shadeDefault.lighter,
+                labelAccessorFn: (ActivityData activity, _) =>
+                    '\%${activity.amount.toString()}'
             ),
             new charts.Series<ActivityData, String>(
               id: 'fluorine',
@@ -210,6 +211,8 @@ class _ChartsWidgetState extends State<ChartsWidget> {
               data: fluorineData,
               colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
               // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
+              labelAccessorFn: (ActivityData activity, _) =>
+                    '\%${activity.amount.toString()}'
             ),
             new charts.Series<ActivityData, String>(
               id: 'floss',
@@ -218,6 +221,8 @@ class _ChartsWidgetState extends State<ChartsWidget> {
               data: flossData,
               colorFn: (_, __) => charts.MaterialPalette.purple.shadeDefault,
               // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
+                   labelAccessorFn: (ActivityData activity, _) =>
+                    '\%${activity.amount.toString()}'
             ),
           ];
         });
