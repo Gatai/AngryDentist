@@ -74,7 +74,34 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 // Configures a [PercentInjector] behavior that will calculate measure
                 // values as the percentage of the total of all data that shares a
                 // domain value.
+                new charts.SeriesLegend(
+                  // Positions for "start" and "end" will be left and right respectively
+                  // for widgets with a build context that has directionality ltr.
+                  // For rtl, "start" and "end" will be right and left respectively.
+                  // Since this example has directionality of ltr, the legend is
+                  // positioned on the right side of the chart.
+                  position: charts.BehaviorPosition.top,
+                  // For a legend that is positioned on the left or right of the chart,
+                  // setting the justification for [endDrawArea] is aligned to the
+                  // bottom of the chart draw area.
+                  insideJustification: charts.InsideJustification.topStart,
+                  // By default, if the position of the chart is on the left or right of
+                  // the chart, [horizontalFirst] is set to false. This means that the
+                  // legend entries will grow as new rows first instead of a new column.
+                  horizontalFirst: false,
+                  // By setting this value to 2, the legend entries will grow up to two
+                  // rows before adding a new column.
+                  desiredMaxRows: 2,
+                  // This defines the padding around each legend entry.
+                  cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
+                  // Render the legend entry text with custom styles.
+                  entryTextStyle: charts.TextStyleSpec(
+                      color: charts.Color(r: 127, g: 63, b: 191),
+                      fontFamily: 'Georgia',
+                      fontSize: 51),
+                )
               ],
+
               barRendererDecorator: new charts.BarLabelDecorator<String>(),
               domainAxis: new charts.OrdinalAxisSpec(),
               // Configure the axis spec to show percentage values.
