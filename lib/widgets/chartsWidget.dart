@@ -54,30 +54,39 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: <Widget>[
-      _buildText(),
-      charts.BarChart(
-        seriesList,
-        barGroupingType: charts.BarGroupingType.grouped,
-        behaviors: [
-          new charts.ChartTitle('',
-              behaviorPosition: charts.BehaviorPosition.top,
-              titleStyleSpec: charts.TextStyleSpec(fontSize: 00),
-              titleOutsideJustification:
-                  charts.OutsideJustification.middleDrawArea,
-              innerPadding: 120),
-          // Configures a [PercentInjector] behavior that will calculate measure
-          // values as the percentage of the total of all data that shares a
-          // domain value.
-          new charts.PercentInjector(
-              totalType: charts.PercentInjectorTotalType.domain),
-        ],
-        barRendererDecorator: new charts.BarLabelDecorator<String>(),
-        domainAxis: new charts.OrdinalAxisSpec(),
-        // Configure the axis spec to show percentage values.
-        primaryMeasureAxis: new charts.PercentAxisSpec(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      
+      home: Scaffold(
+      backgroundColor: Colors.white,
+        body: Center(
+          child: Stack(children: <Widget>[
+            _buildText(),
+            charts.BarChart(
+              seriesList,
+              barGroupingType: charts.BarGroupingType.grouped,
+              behaviors: [
+                new charts.ChartTitle('',
+                    behaviorPosition: charts.BehaviorPosition.top,
+                    titleStyleSpec: charts.TextStyleSpec(fontSize: 00),
+                    titleOutsideJustification:
+                        charts.OutsideJustification.middleDrawArea,
+                    innerPadding: 120),
+                // Configures a [PercentInjector] behavior that will calculate measure
+                // values as the percentage of the total of all data that shares a
+                // domain value.
+                new charts.PercentInjector(
+                    totalType: charts.PercentInjectorTotalType.domain),
+              ],
+              barRendererDecorator: new charts.BarLabelDecorator<String>(),
+              domainAxis: new charts.OrdinalAxisSpec(),
+              // Configure the axis spec to show percentage values.
+              primaryMeasureAxis: new charts.PercentAxisSpec(),
+            ),
+          ]),
+        ),
       ),
-    ]);
+    );
   }
 
   Widget _buildText() {
@@ -202,28 +211,25 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 fillColorFn: (_, __) =>
                     charts.MaterialPalette.blue.shadeDefault.lighter,
                 labelAccessorFn: (ActivityData activity, _) =>
-                    '\%${activity.amount.toString()}'
-            ),
+                    '\%${activity.amount.toString()}'),
             new charts.Series<ActivityData, String>(
-              id: 'fluorine',
-              domainFn: (ActivityData activity, _) => activity.yearMonth,
-              measureFn: (ActivityData activity, _) => activity.amount,
-              data: fluorineData,
-              colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-              // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
-              labelAccessorFn: (ActivityData activity, _) =>
-                    '\%${activity.amount.toString()}'
-            ),
+                id: 'fluorine',
+                domainFn: (ActivityData activity, _) => activity.yearMonth,
+                measureFn: (ActivityData activity, _) => activity.amount,
+                data: fluorineData,
+                colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+                // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
+                labelAccessorFn: (ActivityData activity, _) =>
+                    '\%${activity.amount.toString()}'),
             new charts.Series<ActivityData, String>(
-              id: 'floss',
-              domainFn: (ActivityData activity, _) => activity.yearMonth,
-              measureFn: (ActivityData activity, _) => activity.amount,
-              data: flossData,
-              colorFn: (_, __) => charts.MaterialPalette.purple.shadeDefault,
-              // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
-                   labelAccessorFn: (ActivityData activity, _) =>
-                    '\%${activity.amount.toString()}'
-            ),
+                id: 'floss',
+                domainFn: (ActivityData activity, _) => activity.yearMonth,
+                measureFn: (ActivityData activity, _) => activity.amount,
+                data: flossData,
+                colorFn: (_, __) => charts.MaterialPalette.purple.shadeDefault,
+                // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
+                labelAccessorFn: (ActivityData activity, _) =>
+                    '\%${activity.amount.toString()}'),
           ];
         });
       });
