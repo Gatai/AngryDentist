@@ -56,9 +56,8 @@ class _ChartsWidgetState extends State<ChartsWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      
       home: Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: Center(
           child: Stack(children: <Widget>[
             _buildText(),
@@ -81,7 +80,23 @@ class _ChartsWidgetState extends State<ChartsWidget> {
               barRendererDecorator: new charts.BarLabelDecorator<String>(),
               domainAxis: new charts.OrdinalAxisSpec(),
               // Configure the axis spec to show percentage values.
-              primaryMeasureAxis: new charts.PercentAxisSpec(),
+              primaryMeasureAxis: new charts.NumericAxisSpec(
+                tickProviderSpec: new charts.StaticNumericTickProviderSpec(
+                  <charts.TickSpec<num>>[
+                    charts.TickSpec<num>(0),
+                    charts.TickSpec<num>(10),
+                    charts.TickSpec<num>(20),
+                    charts.TickSpec<num>(30),
+                    charts.TickSpec<num>(40),
+                    charts.TickSpec<num>(50),
+                    charts.TickSpec<num>(60),
+                    charts.TickSpec<num>(70),
+                    charts.TickSpec<num>(80),
+                    charts.TickSpec<num>(90),
+                    charts.TickSpec<num>(100),
+                  ],
+                ),
+              ),
             ),
           ]),
         ),
