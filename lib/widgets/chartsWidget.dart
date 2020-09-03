@@ -82,7 +82,9 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 tickProviderSpec: new charts.StaticNumericTickProviderSpec(
                   <charts.TickSpec<num>>[
                     charts.TickSpec<num>(0),
+                    charts.TickSpec<num>(10),
                     charts.TickSpec<num>(20),
+                    charts.TickSpec<num>(30),
                     charts.TickSpec<num>(40),
                     charts.TickSpec<num>(50),
                     charts.TickSpec<num>(60),
@@ -102,7 +104,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   Widget _buildText() {
     return Container(
-      color: Colors.black,
+      color: Colors.white,
       padding: EdgeInsets.all(50.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +114,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
             style: new TextStyle(
                 decoration: TextDecoration.none,
                 fontSize: 50.0,
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
           ),
@@ -222,7 +224,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 fillColorFn: (_, __) =>
                     charts.MaterialPalette.blue.shadeDefault.lighter,
                 labelAccessorFn: (ActivityData activity, _) =>
-                    '\%${activity.amount.toString()}'),
+                    '${activity.amount.toString()}%'),
             new charts.Series<ActivityData, String>(
                 id: 'fluorine',
                 domainFn: (ActivityData activity, _) => activity.yearMonth,
@@ -231,7 +233,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
                 // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
                 labelAccessorFn: (ActivityData activity, _) =>
-                    '\%${activity.amount.toString()}'),
+                    '${activity.amount.toString()}%'),
             new charts.Series<ActivityData, String>(
                 id: 'floss',
                 domainFn: (ActivityData activity, _) => activity.yearMonth,
@@ -240,7 +242,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 colorFn: (_, __) => charts.MaterialPalette.purple.shadeDefault,
                 // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
                 labelAccessorFn: (ActivityData activity, _) =>
-                    '\%${activity.amount.toString()}'),
+                    '${activity.amount.toString()}%'),
           ];
         });
       });
