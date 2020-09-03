@@ -74,8 +74,6 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 // Configures a [PercentInjector] behavior that will calculate measure
                 // values as the percentage of the total of all data that shares a
                 // domain value.
-                new charts.PercentInjector(
-                    totalType: charts.PercentInjectorTotalType.domain),
               ],
               barRendererDecorator: new charts.BarLabelDecorator<String>(),
               domainAxis: new charts.OrdinalAxisSpec(),
@@ -84,9 +82,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 tickProviderSpec: new charts.StaticNumericTickProviderSpec(
                   <charts.TickSpec<num>>[
                     charts.TickSpec<num>(0),
-                    charts.TickSpec<num>(10),
                     charts.TickSpec<num>(20),
-                    charts.TickSpec<num>(30),
                     charts.TickSpec<num>(40),
                     charts.TickSpec<num>(50),
                     charts.TickSpec<num>(60),
