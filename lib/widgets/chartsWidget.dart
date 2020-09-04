@@ -69,8 +69,8 @@ class _ChartsWidgetState extends State<ChartsWidget> {
         backgroundColor: Colors.white,
         body: Center(
           child: Stack(children: <Widget>[
-           // _buildMonthText(),
-            _buildBarChart(),
+           monthTextSection(),
+            barChartSection(),
           ]),
         ),
       ),
@@ -78,18 +78,18 @@ class _ChartsWidgetState extends State<ChartsWidget> {
   }
 
   //Build the chart bar
-  Widget _buildBarChart() {
+  Widget barChartSection() {
     return charts.BarChart(
       seriesList,
       barGroupingType: charts.BarGroupingType.grouped,
       behaviors: [
-          new charts.ChartTitle(month,
+        /*  new charts.ChartTitle(month,
                     behaviorPosition: charts.BehaviorPosition.top,
                     titleOutsideJustification: charts.OutsideJustification.middle,
                     titleStyleSpec: charts.TextStyleSpec(fontSize: 35),
                     
-                    innerPadding: 50),
-               
+                    innerPadding: 30),
+          */     
         new charts.SeriesLegend(
           // Positions for "start" and "end" will be left and right respectively
           // for widgets with a build context that has directionality ltr.
@@ -141,7 +141,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
     );
   }
 
-  Widget _buildMonthText() {
+  Widget monthTextSection() {
     return Container(
       color: Colors.redAccent,
       padding: EdgeInsets.all(50.0),

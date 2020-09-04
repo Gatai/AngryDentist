@@ -88,7 +88,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               //Bygger kalendern
-              _buildTableCalendar(),
+              tableCalendarSection(),
               Padding(
                 padding: paddingAbove,
               ),
@@ -125,7 +125,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     );
   }
 //Build the tabel layout
-  Widget _buildTableCalendar() {
+  Widget tableCalendarSection() {
     return TableCalendar(
       events: _events,
       initialCalendarFormat: CalendarFormat.month,
