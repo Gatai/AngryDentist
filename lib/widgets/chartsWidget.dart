@@ -1,6 +1,7 @@
 import 'package:AngryDentist/models/activityData.dart';
 import 'package:AngryDentist/screens/home/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:AngryDentist/scaleUI/size_config.dart';
 
 /// Bar chart example
 import 'package:flutter/material.dart';
@@ -54,6 +55,9 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    //Effectively scale UI according to different screen sizes
+    SizeConfig().init(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -67,11 +71,22 @@ class _ChartsWidgetState extends State<ChartsWidget> {
           backgroundColor: Colors.teal,
         ),
         backgroundColor: Colors.white,
-        body: Center(
-          child: Stack(children: <Widget>[
-           monthTextSection(),
-            barChartSection(),
-          ]),
+        body: Container(
+           child: Row(children: [
+              Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          //  Container(
+            //  padding: const EdgeInsets.only(bottom: 8),
+           //),
+            monthTextSection(),
+            barChartSection(),  
+           ],
+              ),
+              ),
+              ],
+           ),
         ),
       ),
     );
@@ -79,72 +94,86 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   //Build the chart bar
   Widget barChartSection() {
-    return charts.BarChart(
-      seriesList,
-      barGroupingType: charts.BarGroupingType.grouped,
-      behaviors: [
-        /*  new charts.ChartTitle(month,
+    return Container(
+      child: Row(children: [
+        Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 400.0,
+              height: 600.0,
+              child: charts.BarChart(
+                seriesList,
+                barGroupingType: charts.BarGroupingType.grouped,
+                behaviors: [
+                  /*  new charts.ChartTitle(month,
                     behaviorPosition: charts.BehaviorPosition.top,
                     titleOutsideJustification: charts.OutsideJustification.middle,
                     titleStyleSpec: charts.TextStyleSpec(fontSize: 35),
                     
                     innerPadding: 30),
-          */     
-        new charts.SeriesLegend(
-          // Positions for "start" and "end" will be left and right respectively
-          // for widgets with a build context that has directionality ltr.
-          // For rtl, "start" and "end" will be right and left respectively.
-          // Since this example has directionality of ltr, the legend is
-          // positioned on the right side of the chart.
-          position: charts.BehaviorPosition.top,
-          // For a legend that is positioned on the left or right of the chart,
-          // setting the justification for [endDrawArea] is aligned to the
-          // bottom of the chart draw area.
-          insideJustification: charts.InsideJustification.topStart,
-          // By default, if the position of the chart is on the left or right of
-          // the chart, [horizontalFirst] is set to false. This means that the
-          // legend entries will grow as new rows first instead of a new column.
-          horizontalFirst: false,
-          // By setting this value to 2, the legend entries will grow up to two
-          // rows before adding a new column.
-          desiredMaxRows: 1,
-          // This defines the padding around each legend entry.
-          cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
-          // Render the legend entry text with custom styles.
-          entryTextStyle: charts.TextStyleSpec(
-              color: charts.Color(r: 127, g: 63, b: 191),
-              fontFamily: 'Georgia',
-              fontSize: 20),
-        )
-      ],
+          */
+                  new charts.SeriesLegend(
+                    // Positions for "start" and "end" will be left and right respectively
+                    // for widgets with a build context that has directionality ltr.
+                    // For rtl, "start" and "end" will be right and left respectively.
+                    // Since this example has directionality of ltr, the legend is
+                    // positioned on the right side of the chart.
+                    position: charts.BehaviorPosition.top,
+                    // For a legend that is positioned on the left or right of the chart,
+                    // setting the justification for [endDrawArea] is aligned to the
+                    // bottom of the chart draw area.
+                    insideJustification: charts.InsideJustification.topStart,
+                    // By default, if the position of the chart is on the left or right of
+                    // the chart, [horizontalFirst] is set to false. This means that the
+                    // legend entries will grow as new rows first instead of a new column.
+                    horizontalFirst: false,
+                    // By setting this value to 2, the legend entries will grow up to two
+                    // rows before adding a new column.
+                    desiredMaxRows: 1,
+                    // This defines the padding around each legend entry.
+                    cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
+                    // Render the legend entry text with custom styles.
+                    entryTextStyle: charts.TextStyleSpec(
+                        color: charts.Color(r: 127, g: 63, b: 191),
+                        fontFamily: 'Georgia',
+                        fontSize: 20),
+                  )
+                ],
 
-      barRendererDecorator: new charts.BarLabelDecorator<String>(),
-      domainAxis: new charts.OrdinalAxisSpec(),
-      // Configure the axis spec to show percentage values.
-      primaryMeasureAxis: new charts.NumericAxisSpec(
-        tickProviderSpec: new charts.StaticNumericTickProviderSpec(
-          <charts.TickSpec<num>>[
-            charts.TickSpec<num>(0),
-            charts.TickSpec<num>(10),
-            charts.TickSpec<num>(20),
-            charts.TickSpec<num>(30),
-            charts.TickSpec<num>(40),
-            charts.TickSpec<num>(50),
-            charts.TickSpec<num>(60),
-            charts.TickSpec<num>(70),
-            charts.TickSpec<num>(80),
-            charts.TickSpec<num>(90),
-            charts.TickSpec<num>(100),
+                barRendererDecorator: new charts.BarLabelDecorator<String>(),
+                domainAxis: new charts.OrdinalAxisSpec(),
+                // Configure the axis spec to show percentage values.
+                primaryMeasureAxis: new charts.NumericAxisSpec(
+                  tickProviderSpec: new charts.StaticNumericTickProviderSpec(
+                    <charts.TickSpec<num>>[
+                      charts.TickSpec<num>(0),
+                      charts.TickSpec<num>(10),
+                      charts.TickSpec<num>(20),
+                      charts.TickSpec<num>(30),
+                      charts.TickSpec<num>(40),
+                      charts.TickSpec<num>(50),
+                      charts.TickSpec<num>(60),
+                      charts.TickSpec<num>(70),
+                      charts.TickSpec<num>(80),
+                      charts.TickSpec<num>(90),
+                      charts.TickSpec<num>(100),
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
-        ),
-      ),
+        ))
+      ]),
     );
   }
 
   Widget monthTextSection() {
     return Container(
-      color: Colors.redAccent,
-      padding: EdgeInsets.all(50.0),
+      color: Colors.white,
+      padding: EdgeInsets.all(10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
