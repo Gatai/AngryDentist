@@ -1,5 +1,6 @@
 import 'package:AngryDentist/widgets/chartsWidget.dart';
 import 'package:AngryDentist/widgets/tableCalendarWidget.dart';
+//import 'package:AngryDentist/widgets/testWidget.dart';
 import 'package:flutter/material.dart';
 
 class SideBarWidget extends StatelessWidget {
@@ -40,7 +41,8 @@ class SideBarWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ChartsWidget()
+                  builder: (context) => ChartsWidget(),
+                //  builder: (context) => LegendWithMeasures.withSampleData(),
                 ),
               ),
             },
