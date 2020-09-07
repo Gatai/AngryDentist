@@ -1,5 +1,6 @@
 import 'package:AngryDentist/models/activityData.dart';
 import 'package:AngryDentist/screens/home/home.dart';
+import 'package:AngryDentist/sideBar/sideBarWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:AngryDentist/scaleUI/size_config.dart';
 
@@ -68,6 +69,12 @@ class _ChartsWidgetState extends State<ChartsWidget> {
               color: Colors.black54,
             ),
           ),
+          leading: new IconButton(
+              icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SideBarWidget()));
+              }),
           backgroundColor: Colors.teal,
         ),
         backgroundColor: Colors.white,
@@ -78,7 +85,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                      /*
+                    /*
                       padding: const EdgeInsets.only(bottom: 8),
                     ),
                       */
