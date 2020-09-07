@@ -72,21 +72,23 @@ class _ChartsWidgetState extends State<ChartsWidget> {
         ),
         backgroundColor: Colors.white,
         body: Container(
-           child: Row(children: [
+          child: Row(
+            children: [
               Expanded(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-          //  Container(
-            //  padding: const EdgeInsets.only(bottom: 8),
-           //),
-            monthTextSection(),
-            barChartSection(),  
-           ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                      /*
+                      padding: const EdgeInsets.only(bottom: 8),
+                    ),
+                      */
+                    monthTextSection(),
+                    barChartSection(),
+                  ],
+                ),
               ),
-              ),
-              ],
-           ),
+            ],
+          ),
         ),
       ),
     );
@@ -107,13 +109,6 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 seriesList,
                 barGroupingType: charts.BarGroupingType.grouped,
                 behaviors: [
-                  /*  new charts.ChartTitle(month,
-                    behaviorPosition: charts.BehaviorPosition.top,
-                    titleOutsideJustification: charts.OutsideJustification.middle,
-                    titleStyleSpec: charts.TextStyleSpec(fontSize: 35),
-                    
-                    innerPadding: 30),
-          */
                   new charts.SeriesLegend(
                     // Positions for "start" and "end" will be left and right respectively
                     // for widgets with a build context that has directionality ltr.

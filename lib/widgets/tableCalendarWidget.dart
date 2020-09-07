@@ -37,7 +37,6 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
     super.initState();
     _calendarController = CalendarController();
     _events = {
-      // DateTime.now(): ['test', 'test2']
     };
     refreshMarker();
   }
