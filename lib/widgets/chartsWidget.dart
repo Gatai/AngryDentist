@@ -89,7 +89,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                       padding: const EdgeInsets.only(bottom: 8),
                     ),
                       */
-                    monthTextSection(),
+                    titleMonthSection(),
                     barChartSection(),
                   ],
                 ),
@@ -172,13 +172,15 @@ class _ChartsWidgetState extends State<ChartsWidget> {
     );
   }
 
-  Widget monthTextSection() {
+  Widget titleMonthSection() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(10.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          IconButton(icon: new Icon(Icons.arrow_back), onPressed: null),
           Text(
             month,
             style: new TextStyle(
@@ -188,6 +190,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
           ),
+          IconButton(icon: new Icon(Icons.arrow_forward), onPressed: null),
         ],
       ),
     );
