@@ -181,7 +181,17 @@ class _ChartsWidgetState extends State<ChartsWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          IconButton(icon: new Icon(Icons.arrow_back), onPressed: getMonth(-1)),
+          GestureDetector(
+              onTap: () {
+                setState(() {
+                  getMonth(-1);
+                });
+              },
+              child: Container(
+                  color: Colors.yellow.shade600,
+                  padding: const EdgeInsets.all(8),
+                  child: IconButton(
+                      icon: new Icon(Icons.arrow_back), onPressed: null))),
           Text(
             month,
             style: new TextStyle(
@@ -191,8 +201,17 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
           ),
-          IconButton(
-              icon: new Icon(Icons.arrow_forward), onPressed: getMonth(1)),
+          GestureDetector(
+              onTap: () {
+                setState(() {
+                  getMonth(1);
+                });
+              },
+              child: Container(
+                  color: Colors.yellow.shade600,
+                  padding: const EdgeInsets.all(8),
+                  child: IconButton(
+                      icon: new Icon(Icons.arrow_forward), onPressed: null))),
         ],
       ),
     );
@@ -219,6 +238,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
     if (dateTime == null) {
       dateTime = DateTime.now();
+      currentMonth = dateTime;
     }
 
     Firestore.instance
@@ -329,8 +349,10 @@ class _ChartsWidgetState extends State<ChartsWidget> {
   }
 
   getMonth(int diff) {
-    setState(() {
+    if (diff != 0) {
       currentMonth = DateTime(currentMonth.year, currentMonth.month + diff);
-    });
+      print(currentMonth);
+      _getDataFromDb(currentMonth);
+    }
   }
 }
