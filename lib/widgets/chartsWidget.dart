@@ -188,7 +188,6 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 });
               },
               child: Container(
-                  color: Colors.yellow.shade600,
                   padding: const EdgeInsets.all(8),
                   child: IconButton(
                       icon: new Icon(Icons.arrow_back), onPressed: null))),
@@ -208,7 +207,6 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 });
               },
               child: Container(
-                  color: Colors.yellow.shade600,
                   padding: const EdgeInsets.all(8),
                   child: IconButton(
                       icon: new Icon(Icons.arrow_forward), onPressed: null))),
