@@ -181,7 +181,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          IconButton(icon: new Icon(Icons.arrow_back), onPressed: setState(() { getMonth(-1);})),
+          IconButton(icon: new Icon(Icons.arrow_back), onPressed: getMonth(-1)),
           Text(
             month,
             style: new TextStyle(
@@ -196,10 +196,6 @@ class _ChartsWidgetState extends State<ChartsWidget> {
         ],
       ),
     );
-  }
-
-  void getMonth(int diff) {
-  currentMonth = DateTime(currentMonth.year, currentMonth.month + diff);
   }
 
   int daysInMonth(DateTime date) {
@@ -329,6 +325,12 @@ class _ChartsWidgetState extends State<ChartsWidget> {
           ];
         });
       });
+    });
+  }
+
+  getMonth(int diff) {
+    setState(() {
+      currentMonth = DateTime(currentMonth.year, currentMonth.month + diff);
     });
   }
 }
