@@ -8,7 +8,6 @@ import 'package:AngryDentist/scaleUI/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
-import 'package:jiffy/jiffy.dart';
 
 class ChartsWidget extends StatefulWidget {
   final List<charts.Series> seriesList;
@@ -47,7 +46,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   _ChartsWidgetState({this.seriesList});
 
-  var currentMonth = null;
+  var currentMonth;
 
   @override
   void initState() {
@@ -77,6 +76,14 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SideBarWidget()));
               }),
+          actions: <Widget>[
+            new IconButton(
+                icon: new Icon(Icons.close),
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
+                })
+          ],
           backgroundColor: Colors.teal,
         ),
         backgroundColor: Colors.white,
