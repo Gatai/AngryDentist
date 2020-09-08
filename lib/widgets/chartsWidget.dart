@@ -43,7 +43,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
   List<charts.Series<ActivityData, String>> seriesList;
 
   //To show month
-  var month = Jiffy().MMMM;
+  var month = "";
 
   _ChartsWidgetState({this.seriesList});
 
@@ -224,6 +224,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   void _getDataFromDb(DateTime dateTime) {
     DateFormat dateYearMonth = DateFormat("yyyyMM");
+    DateFormat dateMonth = DateFormat("MMMM");
 
     //Morning
     int teethBrushedMorning = 0;
@@ -238,6 +239,8 @@ class _ChartsWidgetState extends State<ChartsWidget> {
       dateTime = DateTime.now();
       currentMonth = dateTime;
     }
+
+    month = dateMonth.format(dateTime).toString();
 
     Firestore.instance
         .collection("activities")
