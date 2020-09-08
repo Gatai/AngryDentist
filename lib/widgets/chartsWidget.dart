@@ -47,11 +47,13 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   _ChartsWidgetState({this.seriesList});
 
+  var currentMonth = null;
+
   @override
   void initState() {
     super.initState();
     // read data from db
-    _getDataFromDb(DateTime.now());
+    _getDataFromDb(currentMonth);
   }
 
   @override
@@ -177,10 +179,9 @@ class _ChartsWidgetState extends State<ChartsWidget> {
       color: Colors.white,
       padding: EdgeInsets.all(10.0),
       child: Row(
-        
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          IconButton(icon: new Icon(Icons.arrow_back), onPressed: null),
+          IconButton(icon: new Icon(Icons.arrow_back), onPressed: setState(() { getMonth(-1);})),
           Text(
             month,
             style: new TextStyle(
@@ -190,10 +191,15 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
           ),
-          IconButton(icon: new Icon(Icons.arrow_forward), onPressed: null),
+          IconButton(
+              icon: new Icon(Icons.arrow_forward), onPressed: getMonth(1)),
         ],
       ),
     );
+  }
+
+  void getMonth(int diff) {
+  currentMonth = DateTime(currentMonth.year, currentMonth.month + diff);
   }
 
   int daysInMonth(DateTime date) {
@@ -214,6 +220,10 @@ class _ChartsWidgetState extends State<ChartsWidget> {
     int teethBrushedNight = 0;
     int fluorineNight = 0;
     int flossNight = 0;
+
+    if (dateTime == null) {
+      dateTime = DateTime.now();
+    }
 
     Firestore.instance
         .collection("activities")

@@ -36,8 +36,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   void initState() {
     super.initState();
     _calendarController = CalendarController();
-    _events = {
-    };
+    _events = {};
     refreshMarker();
   }
 
@@ -53,9 +52,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       //refreshMarker();
       // fetch current month without fetching previous and next month
 
-       //converting dateTime to only date
-        var date = DateTime.parse(new DateFormat("yyyy-MM-dd").format(dateTime));
-       _events.remove(date);
+      //converting dateTime to only date
+      var date = DateTime.parse(new DateFormat("yyyy-MM-dd").format(dateTime));
+      _events.remove(date);
 
       getDataMonth(dateTime);
     });
@@ -103,7 +102,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                 padding: paddingBelow,
               ),
               ButtonsWidget(
-                  isMorning: true, dateTime: dateTime, notifyParent: refresh(dateTime)),
+                  isMorning: true,
+                  dateTime: dateTime,
+                  notifyParent: refresh(dateTime)),
               Text(
                 "Night",
                 textAlign: TextAlign.center,
@@ -116,13 +117,16 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                 padding: paddingBelow,
               ),
               ButtonsWidget(
-                  isMorning: false, dateTime: dateTime, notifyParent: refresh(dateTime)),
+                  isMorning: false,
+                  dateTime: dateTime,
+                  notifyParent: refresh(dateTime)),
             ],
           ),
         ),
       ),
     );
   }
+
 //Build the tabel layout
   Widget tableCalendarSection() {
     return TableCalendar(
@@ -179,7 +183,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   }
 
   void getDataMonth(DateTime dateTime) {
-  //  DateFormat dateYearMonth = DateFormat("yyyyMM");
+    //  DateFormat dateYearMonth = DateFormat("yyyyMM");
 
     // Hämta aktivicy från DB
     //Fetch data from database
@@ -197,8 +201,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
           //converting timestamp to date
           dateTime = n.data["dateTime"].toDate();
           _events.putIfAbsent(
-            //save whithout time
-          DateTime.parse(new DateFormat("yyyy-MM-dd").format(dateTime)), () => ["Lägg till fler händelse"]);
+              //save whithout time
+              DateTime.parse(new DateFormat("yyyy-MM-dd").format(dateTime)),
+              () => ["Lägg till fler händelse"]);
         }
 
         //check if amount of events has changed,
@@ -213,7 +218,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   }
 
   void refreshMarker() {
-   // DateFormat dateYearMonth = DateFormat("yyyyMM");
+    // DateFormat dateYearMonth = DateFormat("yyyyMM");
     //Make sure dateTime is never null
     dateTime = dateTime == null ? DateTime.now() : dateTime;
     var tempMonth = dateYearMonth.format(dateTime);
@@ -225,5 +230,4 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       getDataMonth(dateTime);
     }
   }
-
 }
