@@ -188,6 +188,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          //GestureDetector is how to interact with widget
           GestureDetector(
               onTap: () {
                 setState(() {
@@ -248,7 +249,52 @@ class _ChartsWidgetState extends State<ChartsWidget> {
     }
 
     month = dateMonth.format(dateTime).toString();
+    //Reset the chart before calling the database
+    final teethBrushedData = [
+      new ActivityData('Morning', (0)),
+      new ActivityData('Night', (0)),
+    ];
+    final fluorineData = [
+      new ActivityData('Morning', (0)),
+      new ActivityData('Night', (0)),
+    ];
+    final flossData = [
+      new ActivityData('Morning', (0)),
+      new ActivityData('Night', (0)),
+    ];
+    //Reset the chart before calling the database
+    this.seriesList = [
+      new charts.Series<ActivityData, String>(
+          id: 'teethBrushed',
+          domainFn: (ActivityData activity, _) => activity.yearMonth,
+          measureFn: (ActivityData activity, _) => activity.amount,
+          data: teethBrushedData,
+          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+          fillColorFn: (_, __) =>
+              charts.MaterialPalette.blue.shadeDefault.lighter,
+          labelAccessorFn: (ActivityData activity, _) =>
+              '${activity.amount.toString()}%'),
+      new charts.Series<ActivityData, String>(
+          id: 'fluorine',
+          domainFn: (ActivityData activity, _) => activity.yearMonth,
+          measureFn: (ActivityData activity, _) => activity.amount,
+          data: fluorineData,
+          colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+          // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
+          labelAccessorFn: (ActivityData activity, _) =>
+              '${activity.amount.toString()}%'),
+      new charts.Series<ActivityData, String>(
+          id: 'floss',
+          domainFn: (ActivityData activity, _) => activity.yearMonth,
+          measureFn: (ActivityData activity, _) => activity.amount,
+          data: flossData,
+          colorFn: (_, __) => charts.MaterialPalette.purple.shadeDefault,
+          // fillColorFn: (_, __) => charts.MaterialPalette.transparent,
+          labelAccessorFn: (ActivityData activity, _) =>
+              '${activity.amount.toString()}%'),
+    ];
 
+    //Calling DB
     Firestore.instance
         .collection("activities")
         .document(currentUser.userId)
@@ -283,6 +329,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
             }
           }
         }
+
         //Get the days in dateTime
         var days = daysInMonth(dateTime);
         //var days = Utils.daysInMonth(dateTime).length;
