@@ -13,6 +13,9 @@ class _HelloWidget extends State<HelloWidget> {
   static String message;
   static String userId;
 
+  var currentMonth;
+
+
   @override
   Widget build(BuildContext context) {
     //Effectively scale UI according to different screen sizes
@@ -28,27 +31,49 @@ class _HelloWidget extends State<HelloWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+           GestureDetector(
+              onTap: () {
+                setState(() {
+                //  getMonth(-1);
+                });
+              },
+              child: Container(
+                  padding: const EdgeInsets.all(8),
+                  child: IconButton(
+                      icon: new Icon(Icons.arrow_back), onPressed: null))),
           Text(
             greeting(),
             style: new TextStyle(
-                fontSize: 50.0,
+                fontSize: 35.0,
                 color: Colors.black,
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
           ),
           Text(
+            //Name
             message,
             style: new TextStyle(
-                fontSize: 50.0,
+                fontSize: 35.0,
                 color: Colors.black,
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
           ),
+             GestureDetector(
+              onTap: () {
+                setState(() {
+                 // getMonth(1);
+                });
+              },
+              child: Container(
+                  padding: const EdgeInsets.all(8),
+                  child: IconButton(
+                      icon: new Icon(Icons.arrow_forward), onPressed: null))),
         ],
       ),
     );
   }
 
+//get the current user name
   void setupMessage() {
     var currentUser = Provider.of<Activity>(context);
 
