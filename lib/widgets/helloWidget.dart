@@ -1,4 +1,5 @@
 import 'package:AngryDentist/models/activity.dart';
+import 'package:AngryDentist/scaleUI/size_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,19 +13,20 @@ class _HelloWidget extends State<HelloWidget> {
   static String message;
   static String userId;
 
-
   @override
   Widget build(BuildContext context) {
-    // Fetch from database using current date + "m" / "n" as key
-    // evaluate button colors depending on activity booleans
+    //Effectively scale UI according to different screen sizes
+    SizeConfig().init(context);
 
+    //title
     setupMessage();
 
     //Return result
     return Container(
+      height: SizeConfig.blockSizeVertical * 10,
+      width: SizeConfig.blockSizeHorizontal * 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-
         children: <Widget>[
           Text(
             greeting(),
@@ -34,8 +36,8 @@ class _HelloWidget extends State<HelloWidget> {
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
           ),
-           Text(
-             message,
+          Text(
+            message,
             style: new TextStyle(
                 fontSize: 50.0,
                 color: Colors.black,

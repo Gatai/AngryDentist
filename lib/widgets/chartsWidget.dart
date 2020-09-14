@@ -88,6 +88,8 @@ class _ChartsWidgetState extends State<ChartsWidget> {
         ),
         backgroundColor: Colors.white,
         body: Container(
+          height: SizeConfig.blockSizeVertical * 100,
+          width: SizeConfig.blockSizeHorizontal * 100,
           child: Row(
             children: [
               Expanded(
