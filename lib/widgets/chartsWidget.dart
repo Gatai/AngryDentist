@@ -120,7 +120,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
           children: [
             SizedBox(
               width: 400.0,
-              height: 600.0,
+              height: 550.0,
               child: charts.BarChart(
                 seriesList,
                 barGroupingType: charts.BarGroupingType.grouped,
