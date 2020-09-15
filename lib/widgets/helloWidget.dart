@@ -31,20 +31,10 @@ class _HelloWidget extends State<HelloWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-           GestureDetector(
-              onTap: () {
-                setState(() {
-                //  getMonth(-1);
-                });
-              },
-              child: Container(
-                  padding: const EdgeInsets.all(8),
-                  child: IconButton(
-                      icon: new Icon(Icons.arrow_back), onPressed: null))),
           Text(
             greeting(),
             style: new TextStyle(
-                fontSize: 35.0,
+                fontSize: 40.0,
                 color: Colors.black,
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
@@ -53,21 +43,11 @@ class _HelloWidget extends State<HelloWidget> {
             //Name
             message,
             style: new TextStyle(
-                fontSize: 35.0,
+                fontSize: 40.0,
                 color: Colors.black,
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
           ),
-             GestureDetector(
-              onTap: () {
-                setState(() {
-                 // getMonth(1);
-                });
-              },
-              child: Container(
-                  padding: const EdgeInsets.all(8),
-                  child: IconButton(
-                      icon: new Icon(Icons.arrow_forward), onPressed: null))),
         ],
       ),
     );
