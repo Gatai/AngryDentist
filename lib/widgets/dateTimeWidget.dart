@@ -7,15 +7,14 @@ class DateTimeWidget extends StatefulWidget {
 
   final Function(DateTime) notifyParent;
 
-  DateTimeWidget({this.dateTime, @required this.notifyParent});
+  DateTimeWidget({this.dateTime, this.notifyParent});
 
   @override
-  _DateTimeWidgetState createState() =>
-      _DateTimeWidgetState(dateTime);
+  _DateTimeWidgetState createState() => _DateTimeWidgetState(dateTime: dateTime);
 }
 
 class _DateTimeWidgetState extends State<DateTimeWidget> {
-  _DateTimeWidgetState(this.dateTime);
+  _DateTimeWidgetState({this.dateTime});
 
   DateFormat dateFormat = DateFormat("MMMMd");
   var dateTime;
@@ -31,45 +30,29 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          GestureDetector(
-              onTap: () {
-                //setState(() {
-                  dateTime = DateTime(dateTime.year, dateTime.month, dateTime.day - 1);
-                  if (widget.notifyParent != null) {
-                    widget.notifyParent(dateTime);
-                  }
-                  else {
-                    print ('nullllll');
-                  }
-                //});
-              },
-              child: Container(
-                  padding: const EdgeInsets.all(8),
-                  child: IconButton(
-                      icon: new Icon(Icons.arrow_back), onPressed: null))),
+          buildGestureDetector(-1, new Icon(Icons.arrow_back)),
           Text(
             dateFormat.format(dateTime),
-            style: new TextStyle(
-                fontSize: 30.0,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontFamily: "Roboto"),
+            style:
+                new TextStyle(fontSize: 30.0, color: Colors.black, fontWeight: FontWeight.bold, fontFamily: "Roboto"),
           ),
-          GestureDetector(
-              onTap: () {
-                //setState(() {
-                  dateTime = DateTime(dateTime.year, dateTime.month, dateTime.day + 1);
-                  if (widget.notifyParent != null) {
-                    widget.notifyParent(dateTime);
-                  }                  
-                //});
-              },
-              child: Container(
-                  padding: const EdgeInsets.all(8),
-                  child: IconButton(
-                      icon: new Icon(Icons.arrow_forward), onPressed: null))),
+          buildGestureDetector(1, new Icon(Icons.arrow_forward)),
         ],
       ),
+    );
+  }
+
+  GestureDetector buildGestureDetector(int plus, Icon arrow) {
+    return GestureDetector(
+      onTap: () {
+        //setState(() {
+        dateTime = DateTime(dateTime.year, dateTime.month, dateTime.day + plus);
+        if (widget.notifyParent != null) {
+          widget.notifyParent(dateTime);
+        }
+        //});
+      },
+      child: Container(padding: const EdgeInsets.all(8), child: IconButton(icon: arrow, onPressed: null)),
     );
   }
 }
