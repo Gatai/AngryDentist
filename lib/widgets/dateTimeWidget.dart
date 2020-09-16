@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 class DateTimeWidget extends StatefulWidget {
   final dateTime;
 
-  final Function(DateTime) notifyParent;
+  final dynamic Function(DateTime) notifyParent;
 
   DateTimeWidget({this.dateTime, this.notifyParent});
 

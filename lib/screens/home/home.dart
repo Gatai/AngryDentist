@@ -21,10 +21,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   var dateTime = DateTime.now();
 
-  refresh(dateTime) {
+   dynamic refresh(dateTime) {
     setState(() {
       this.dateTime = dateTime;
       print('dateTimeee');
@@ -34,10 +33,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    
     //Effectively scale UI according to different screen sizes
     SizeConfig().init(context);
-    
+
     //Om det finns en inloggad user kommer variabeln att få informationen
     currentUser = Provider.of<Activity>(context);
     // marcus tandtroll ID: m4n1afnoP1hK2ST1d5KCfC6xAez2
@@ -74,7 +72,7 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               HelloWidget(dateTime: dateTime),
-              DateTimeWidget(dateTime: dateTime, notifyParent: refresh(dateTime)),
+              DateTimeWidget(dateTime: dateTime, notifyParent: refresh),
               Padding(
                 padding: paddingAbove,
               ),
@@ -88,7 +86,7 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: paddingBelow,
               ),
-              ButtonsWidget(isMorning: true),
+              ButtonsWidget(isMorning: true, dateTime: dateTime),
               Padding(
                 padding: paddingAbove,
               ),
@@ -102,10 +100,9 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: paddingBelow,
               ),
-              ButtonsWidget(isMorning: false)
+              ButtonsWidget(isMorning: false, dateTime: dateTime,)
             ]),
       ),
     );
   }
 }
-
