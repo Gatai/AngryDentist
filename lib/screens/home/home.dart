@@ -21,6 +21,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  var dateTime = DateTime.now();
+
+  refresh(dateTime) {
+    setState(() {
+      this.dateTime = dateTime;
+      print('dateTimeee');
+      print(dateTime);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -62,8 +73,8 @@ class _HomeState extends State<Home> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              HelloWidget(),
-              DateTimeWidget(),
+              HelloWidget(dateTime: dateTime),
+              DateTimeWidget(dateTime: dateTime, notifyParent: refresh(dateTime)),
               Padding(
                 padding: paddingAbove,
               ),
@@ -97,3 +108,4 @@ class _HomeState extends State<Home> {
     );
   }
 }
+

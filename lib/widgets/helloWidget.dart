@@ -5,16 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HelloWidget extends StatefulWidget {
+  final dateTime;
+
+  HelloWidget({this.dateTime});
+
   @override
-  _HelloWidget createState() => _HelloWidget();
+  _HelloWidget createState() => _HelloWidget(dateTime: dateTime);
 }
 
 class _HelloWidget extends State<HelloWidget> {
+  _HelloWidget({this.dateTime});
+
   static String message;
   static String userId;
 
-  var currentMonth;
-
+  var dateTime;  
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +83,7 @@ class _HelloWidget extends State<HelloWidget> {
   }
 
   String greeting() {
-    var hour = DateTime.now().hour;
+    var hour = this.dateTime.hour;
     if (hour < 12) {
       return 'Morning';
     }
