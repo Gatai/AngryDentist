@@ -33,8 +33,7 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
           buildGestureDetector(-1, new Icon(Icons.arrow_back)),
           Text(
             dateFormat.format(dateTime),
-            style:
-                new TextStyle(fontSize: 30.0, color: Colors.black, fontWeight: FontWeight.bold, fontFamily: "Roboto"),
+            style: new TextStyle(fontSize: 30.0, color: Colors.black, fontWeight: FontWeight.bold, fontFamily: "Roboto"),
           ),
           buildGestureDetector(1, new Icon(Icons.arrow_forward)),
         ],

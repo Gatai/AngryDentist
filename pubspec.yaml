@@ -38,6 +38,9 @@ dependencies:
   charts_flutter: ^0.9.0
   date_utils: ^0.1.0+3
   jiffy: ^3.0.1
+  assets:
+  uses-material-design: true
+    - assets/dog2.png
 
   
 dev_dependencies:
