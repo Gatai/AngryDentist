@@ -70,6 +70,14 @@ class _SignInState extends State<SignIn> {
       },
     );
 
+      var forgetPasswordButton = FlatButton.icon(
+      icon: Icon(Icons.),
+      label: Text('Lägg till glömt lösenord'),
+      onPressed: () {
+        widget.toggleView();
+      },
+    );
+
     return Scaffold(
         backgroundColor: Colors.white,
       /*  appBar: AppBar(
@@ -101,11 +109,11 @@ class _SignInState extends State<SignIn> {
                     height: 230.0,
                     width: 219.0,
                     child: Image.asset(
-                      "assets/dog2.png",
+                      "assets/index.jpg",
                       fit: BoxFit.contain,
                     ),
                   ),
-                  Text("Bild och text"),
+                  Text("Welcome to Angry dentist!"),
                   SizedBox(height: 20.0),
                   emailFormField,
                   SizedBox(height: 10.0),
@@ -113,9 +121,15 @@ class _SignInState extends State<SignIn> {
                   //Space
                   SizedBox(height: 20.0),
                   signInButton(),
-                  registerButton,
+                  Row(
+                    children: [
+                      registerButton,
+                      Text("|"),
+                      forgetPasswordButton,
+                  //Text("| Lägg till glömt lösenord"),
+                    ],
+                  ),
                   //Lägg till glömt löenord.
-                  Text("Lägg till glömt lösenord"),
                   Text(
                     error,
                     style: TextStyle(color: Colors.red, fontSize: 14.0),
