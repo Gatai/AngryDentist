@@ -1,7 +1,7 @@
 # AngryDentist
 [photo]
 # Ⅰ . What is Angry Dentist?
-A new Flutter project.
+Angry dentist is a Mobile app for overview of daily dental care. Developed with Google Flutter and Firebase db.
 
 ## Getting Started
 
