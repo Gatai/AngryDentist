@@ -3,15 +3,25 @@
 # Ⅰ . What is Angry Dentist?
 Angry dentist is a Mobile app for overview of daily dental care. Developed with Google Flutter and Firebase db.
 
-## Getting Started
+# Ⅱ . Development process
 
-This project is a starting point for a Flutter application.
+- [2020] Angry dentist was started on June 5 at the company kvack studio in gothenburg.
 
-A few resources to get you started if this is your first Flutter project:
+# Ⅲ . Features
+- User can sign in.
+[Photo]
+- User can log in.
+[photo]
+- Once the user has logged in, they will see the first page. Where you can click on the buttons which then turn green. Red is represented that you have not done that activity on that particular day.
+[photo]
+- On the date, you can click on two arrows that show back and forth, to check if you have missed any activity that day.
+[photo]
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+I want to thank my mentor marcus medina who helped me during the project.
+Developed by: Phatchari Jansson and Marcus Medina
+
+
+
+
