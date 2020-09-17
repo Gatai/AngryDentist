@@ -9,7 +9,7 @@ Angry dentist is a Mobile app for overview of daily dental care. Developed with 
 
 # Ⅲ . Features
 - User can sign in.
-[Photo]
+![](assets/img/harmony/features.png) [photo]
 - User can log in.
 [photo]
 - Once the user has logged in, they will see the first page. Where you can click on the buttons which then turn green. Red is represented that you have not done that activity on that particular day.
