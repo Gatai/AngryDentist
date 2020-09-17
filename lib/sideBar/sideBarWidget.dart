@@ -16,9 +16,9 @@ class SideBarWidget extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: Colors.teal,
-              /*image: DecorationImage(
+              image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage('lib/images/website.jpg'))*/
+                    image: AssetImage('assets/dog2.png'))
             ),
           ),
           ListTile(

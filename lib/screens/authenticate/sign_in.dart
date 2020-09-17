@@ -71,7 +71,7 @@ class _SignInState extends State<SignIn> {
     );
 
       var forgetPasswordButton = FlatButton.icon(
-      icon: Icon(Icons.),
+      icon: Icon(Icons.restore),
       label: Text('Lägg till glömt lösenord'),
       onPressed: () {
         widget.toggleView();
