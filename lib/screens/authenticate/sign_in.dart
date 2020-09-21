@@ -13,6 +13,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -65,7 +66,7 @@ class _SignInState extends State<SignIn> {
 
     var registerButton = FlatButton.icon(
       icon: Icon(Icons.person_add),
-      label: Text('Create account'),
+      label: Text('Create account?'),
       onPressed: () {
         widget.toggleView();
       },
@@ -73,7 +74,7 @@ class _SignInState extends State<SignIn> {
 
     var forgetPasswordButton = FlatButton.icon(
       icon: Icon(Icons.restore),
-      label: Text('Forget password'),
+      label: Text('Reset password?'),
       onPressed: () {
         Navigator.push(
           context,
@@ -84,30 +85,13 @@ class _SignInState extends State<SignIn> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        /*  appBar: AppBar(
-          backgroundColor: Colors.teal                                                         ,
-          elevation: 0.0,
-          title: Text(
-            title,
-            style: new TextStyle(
-              color: Colors.black54,
-            ),
-          ),
-
-          //centerTitle: true,
-          //actions: <Widget>[registerButton],
-        ),*/
 
         body: SingleChildScrollView(
-         // height: SizeConfig.blockSizeVertical * 100,
-          //width: SizeConfig.blockSizeHorizontal * 100,
-          //padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
           child: Form(
            key: _formKey,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
-                //   mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
                     height: 230.0,
@@ -130,10 +114,8 @@ class _SignInState extends State<SignIn> {
                       registerButton,
                       Text("|"),
                       forgetPasswordButton,
-                      //Text("| Lägg till glömt lösenord"),
                     ],
                   ),
-                  //Lägg till glömt löenord.
                   Text(
                     error,
                     style: TextStyle(color: Colors.red, fontSize: 14.0),

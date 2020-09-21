@@ -1,5 +1,4 @@
 import 'package:AngryDentist/scaleUI/size_config.dart';
-import 'package:AngryDentist/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +8,6 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   String email = '';
