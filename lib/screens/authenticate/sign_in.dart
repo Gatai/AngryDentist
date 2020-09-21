@@ -1,4 +1,5 @@
 import 'package:AngryDentist/scaleUI/size_config.dart';
+import 'package:AngryDentist/screens/authenticate/forgetPassword.dart';
 import 'package:AngryDentist/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +62,7 @@ class _SignInState extends State<SignIn> {
         onChanged: (val) {
           setState(() => password = val);
         });
-        
+
     var registerButton = FlatButton.icon(
       icon: Icon(Icons.person_add),
       label: Text('Create account'),
@@ -70,18 +71,21 @@ class _SignInState extends State<SignIn> {
       },
     );
 
-      var forgetPasswordButton = FlatButton.icon(
+    var forgetPasswordButton = FlatButton.icon(
       icon: Icon(Icons.restore),
-      label: Text('Lägg till glömt lösenord'),
+      label: Text('Forget password'),
       onPressed: () {
-        widget.toggleView();
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ForgetPassword()),
+        );
       },
     );
 
     return Scaffold(
         backgroundColor: Colors.white,
-      /*  appBar: AppBar(
-          backgroundColor: Colors.teal,
+        /*  appBar: AppBar(
+          backgroundColor: Colors.teal                                                         ,
           elevation: 0.0,
           title: Text(
             title,
@@ -94,12 +98,12 @@ class _SignInState extends State<SignIn> {
           //actions: <Widget>[registerButton],
         ),*/
 
-        body: Container(
-          height: SizeConfig.blockSizeVertical * 100,
-          width: SizeConfig.blockSizeHorizontal * 100,
+        body: SingleChildScrollView(
+         // height: SizeConfig.blockSizeVertical * 100,
+          //width: SizeConfig.blockSizeHorizontal * 100,
           //padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
           child: Form(
-            key: _formKey,
+           key: _formKey,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
@@ -126,7 +130,7 @@ class _SignInState extends State<SignIn> {
                       registerButton,
                       Text("|"),
                       forgetPasswordButton,
-                  //Text("| Lägg till glömt lösenord"),
+                      //Text("| Lägg till glömt lösenord"),
                     ],
                   ),
                   //Lägg till glömt löenord.
