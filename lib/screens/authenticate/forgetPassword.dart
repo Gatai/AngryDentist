@@ -1,4 +1,5 @@
 import 'package:AngryDentist/scaleUI/size_config.dart';
+import 'package:AngryDentist/screens/authenticate/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -29,28 +30,38 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           setState(() => email = val);
         });
 
-    return Scaffold(
-      body: SingleChildScrollView(
-          child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 230.0,
-                      width: 219.0,
-                      child: Image.asset(
-                        "assets/index.jpg",
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    Text("Welcome to reset your password!"),
-                    SizedBox(height: 20.0),
-                    emailFormField,
-                    //Space
-                    SizedBox(height: 20.0),
-                    signInButton(),
+    var returnToSignIn = FlatButton(
+      child: Text('Return to sign in'),
+      onPressed: () {
+       Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SignIn()),
+        );
+      });
+
+        return Scaffold(
+          body: SingleChildScrollView(
+              child: Form(
+                  key: _formKey,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 230.0,
+                          width: 219.0,
+                          child: Image.asset(
+                            "assets/index.jpg",
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        Text("Welcome to reset your password!"),
+                        SizedBox(height: 20.0),
+                        emailFormField,
+                        //Space
+                        SizedBox(height: 20.0),
+                        signInButton(),
+                        returnToSignIn,
                     Text(
                       error,
                       style: TextStyle(color: Colors.red, fontSize: 14.0),

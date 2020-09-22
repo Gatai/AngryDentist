@@ -17,7 +17,7 @@ class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
-  var title = 'Sign in to angry dentist';
+  var title = 'Welcome to sig in for Angry dentist!';
 
   //text field state
   String error = '';
@@ -50,6 +50,7 @@ class _SignInState extends State<SignIn> {
 
     var passwordFormField = TextFormField(
         validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+        style: style,
         decoration: new InputDecoration(
           contentPadding: new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           border: OutlineInputBorder(borderRadius: borderCircular),
@@ -66,7 +67,7 @@ class _SignInState extends State<SignIn> {
 
     var registerButton = FlatButton.icon(
       icon: Icon(Icons.person_add),
-      label: Text('Create account?'),
+      label: Text('Create new account'),
       onPressed: () {
         widget.toggleView();
       },
@@ -101,7 +102,7 @@ class _SignInState extends State<SignIn> {
                       fit: BoxFit.contain,
                     ),
                   ),
-                  Text("Welcome to Angry dentist!"),
+                  Text(title),
                   SizedBox(height: 20.0),
                   emailFormField,
                   SizedBox(height: 10.0),

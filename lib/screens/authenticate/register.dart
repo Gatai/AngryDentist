@@ -16,7 +16,7 @@ class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
- var title = 'Sign up to angry dentist';
+  var title = 'Sign up to angry dentist';
 
   //text field state
   String name = '';
@@ -26,6 +26,70 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    
+    var signInflatButton = FlatButton.icon(
+      icon: Icon(Icons.person),
+      label: Text('Sign in'),
+      onPressed: () {
+        widget.toggleView();
+      },
+    );
+
+    var nameTextFormField = TextFormField(
+        decoration: new InputDecoration(
+            hintText: 'Name',
+            icon: new Icon(
+              Icons.mood,
+              color: Colors.grey,
+            )),
+        onChanged: (val) {
+          setState(() => name = val);
+        });
+
+    var emailFormField = TextFormField(
+        validator: (val) => val.isEmpty ? 'Enter an email' : null,
+        decoration: new InputDecoration(
+            hintText: 'Email',
+            icon: new Icon(
+              Icons.mail,
+              color: Colors.grey,
+            )),
+        onChanged: (val) {
+          setState(() => email = val);
+        });
+
+    var passwordtextFormField = TextFormField(
+        validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+        decoration: new InputDecoration(
+            hintText: 'Password',
+            icon: new Icon(
+              Icons.lock,
+              color: Colors.grey,
+            )),
+        obscureText: true,
+        onChanged: (val) {
+          setState(() => password = val);
+        });
+
+    var registerRaisedButton = RaisedButton(
+        color: Colors.red[300],
+        child: Text(
+          'Register',
+          style: TextStyle(color: Colors.white),
+        ),
+        onPressed: () async {
+          if (_formKey.currentState.validate()) {
+            dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+
+            if (result == null) {
+              setState(() => error = 'Try again');
+            } else {
+              var userX = User(email: email, name: name, userId: result.userId);
+              Firestore.instance.collection('activities').document(result.userId).setData(userX.toJson());
+            }
+          }
+        });
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -37,16 +101,7 @@ class _RegisterState extends State<Register> {
               color: Colors.black54,
             ),
           ),
-          // centerTitle: true,
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Sign in'),
-              onPressed: () {
-                widget.toggleView();
-              },
-            )
-          ],
+          actions: <Widget>[signInflatButton],
         ),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -55,67 +110,13 @@ class _RegisterState extends State<Register> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20.0),
-                TextFormField(
-                    decoration: new InputDecoration(
-                        hintText: 'Name',
-                        icon: new Icon(
-                          Icons.mood,
-                          color: Colors.grey,
-                        )),
-                    onChanged: (val) {
-                      setState(() => name = val);
-                    }),
+                nameTextFormField,
                 SizedBox(height: 20.0),
-                TextFormField(
-                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                    decoration: new InputDecoration(
-                        hintText: 'Email',
-                        icon: new Icon(
-                          Icons.mail,
-                          color: Colors.grey,
-                        )),
-                    onChanged: (val) {
-                      setState(() => email = val);
-                    }),
+                emailFormField,
                 SizedBox(height: 20.0),
-                TextFormField(
-                    validator: (val) => val.length < 6
-                        ? 'Enter a password 6+ chars long'
-                        : null,
-                    decoration: new InputDecoration(
-                        hintText: 'Password',
-                        icon: new Icon(
-                          Icons.lock,
-                          color: Colors.grey,
-                        )),
-                    obscureText: true,
-                    onChanged: (val) {
-                      setState(() => password = val);
-                    }),
+                passwordtextFormField,
                 SizedBox(height: 20.0),
-                RaisedButton(
-                    color: Colors.red[300],
-                    child: Text(
-                      'Register',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        dynamic result = await _auth
-                            .registerWithEmailAndPassword(email, password);
-
-                        if (result == null) {
-                          setState(() => error = 'Try again');
-                        } else {
-                          var userX = User(
-                              email: email, name: name, userId: result.userId);
-                          Firestore.instance
-                              .collection('activities')
-                              .document(result.userId)
-                              .setData(userX.toJson());
-                        }
-                      }
-                    }),
+                registerRaisedButton,
                 SizedBox(height: 12.0),
                 Text(
                   error,
