@@ -1,4 +1,4 @@
-# AngryDentist
+# AngryDentist (Developing..)
 [photo]
 # Ⅰ . What is Angry Dentist?
 Angry dentist is a Mobile app for overview of daily dental care. Developed with Google Flutter and Firebase db.
